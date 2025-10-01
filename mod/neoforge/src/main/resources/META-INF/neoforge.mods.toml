@@ -1,0 +1,24 @@
+modLoader = "kotlinforforge"
+loaderVersion = "[5.3,)"
+license = "MIT"
+authors = "Pedro Souza"
+
+[[mods]]
+modId = "mlib"
+version = "${version}"
+displayName = "mlib"
+
+[[dependencies.mlib]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[${minecraft_version}]"
+
+[[dependencies.mlib]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[21,)"
+
+[[dependencies.mlib]]
+modId = "gooeylibs"
+mandatory = true
+versionRange = "[21,)"
