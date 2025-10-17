@@ -7,6 +7,7 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
+import io.github.morapowered.mlib.configuration.internal.ConfigurationKotlinSerializers
 import io.github.morapowered.mlib.platform.ProxyPlatform
 import io.github.morapowered.mlib.util.BuildParameters
 import org.slf4j.Logger
@@ -30,6 +31,7 @@ class MLibPlugin : ProxyPlatform {
     @Subscribe
     fun onInitialize(event: ProxyInitializeEvent?) {
         init()
+        ConfigurationKotlinSerializers.register()
     }
 
     @Subscribe

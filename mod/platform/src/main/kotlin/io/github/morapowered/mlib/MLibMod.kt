@@ -1,6 +1,7 @@
 package io.github.morapowered.mlib
 
 import com.mojang.logging.LogUtils
+import io.github.morapowered.mlib.configuration.internal.ConfigurationKotlinSerializers
 import io.github.morapowered.mlib.platform.ModPlatform
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint
@@ -28,6 +29,7 @@ object MLibMod : PreLaunchEntrypoint, ModPlatform() {
 
     override fun init() {
         super.init()
+        ConfigurationKotlinSerializers.register()
     }
 
     override fun getServer(): MinecraftServer {
