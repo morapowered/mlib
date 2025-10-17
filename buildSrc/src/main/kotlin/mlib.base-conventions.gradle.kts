@@ -1,10 +1,9 @@
 plugins {
     java
     `java-library`
-    kotlin("jvm")
 }
 
-group = rootProject.group
+//group = rootProject.group
 version = rootProject.version
 
 java {
@@ -12,6 +11,9 @@ java {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
     withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {

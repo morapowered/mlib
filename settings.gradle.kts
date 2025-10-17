@@ -8,9 +8,7 @@ pluginManagement {
 
 rootProject.name = "mlib"
 
-include(":api")
-include(":shared")
-include(":mod:common")
-include(":mod:fabric")
-include(":mod:neoforge")
-include(":proxy")
+include(":api", ":api:kotlin")
+include(":common", ":common:kotlin")
+include(":mod:api", ":mod:api:kotlin", ":mod:platform")
+include(":proxy:api", ":proxy:api:kotlin", ":proxy:platform")

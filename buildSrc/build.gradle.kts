@@ -14,7 +14,6 @@ repositories {
 dependencies {
     implementation(libs.kotlin)
     implementation(libs.loom)
-    implementation(libs.architectury)
     implementation(libs.shadow)
     implementation(libs.blossom)
     implementation(libs.licenser)

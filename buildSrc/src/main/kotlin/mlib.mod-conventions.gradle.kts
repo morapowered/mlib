@@ -1,17 +1,8 @@
 plugins {
     id("mlib.base-conventions")
-    id("dev.architectury.loom")
-    id("architectury-plugin")
+    id("fabric-loom")
 }
 
-architectury {
-    minecraft = rootProject.property("minecraft_version").toString()
-    compileOnly()
-}
-
-loom {
-    silentMojangMappingsLicense()
-}
 
 
 dependencies {
