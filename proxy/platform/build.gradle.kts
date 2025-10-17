@@ -1,5 +1,7 @@
 plugins {
+    id("mlib.kotlin-conventions")
     id("mlib.platform-conventions")
+    kotlin("kapt")
 }
 
 base {
@@ -9,6 +11,7 @@ base {
 dependencies {
     compileOnly(libs.velocity.api)
     annotationProcessor(libs.velocity.api)
+    kapt(libs.velocity.api)
 
     implementation(libs.velocity.language.kotlin)
 
