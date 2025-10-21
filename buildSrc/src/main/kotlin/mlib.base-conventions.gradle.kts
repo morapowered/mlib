@@ -26,8 +26,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-
 repositories {
+    mavenCentral()
     maven("https://maven.fabricmc.net/")
     maven("https://maven.impactdev.net/repository/development/")
     maven("https://maven.parchmentmc.org")
@@ -38,10 +38,10 @@ repositories {
             password = localProperties.getProperty("gpr.token") ?: System.getenv("GH_TOKEN")
         }
         content {
-            includeGroup("io.github.morapowered")
+            includeGroupByRegex("io.github.morapowered")
+            includeGroupByRegex("io.github.morapowered.*")
         }
     }
-    mavenCentral()
     mavenLocal()
 }
 

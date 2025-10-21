@@ -47,7 +47,7 @@ configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", ver
 configurate-hocon = { group = "org.spongepowered", name = "configurate-hocon", version.ref = "configurate" }
 configurate-gson = { group = "org.spongepowered", name = "configurate-gson", version.ref = "configurate" }
 configurate-extra-kotlin = { group = "org.spongepowered", name = "configurate-extra-kotlin", version.ref = "configurate" }
-channels = { group = "io.github.morapowered", name = "channels-bom", version.ref = "channels" }
+channels = { group = "io.github.morapowered.channels", name = "bom", version.ref = "channels" }
 hikaricp = { group = "com.zaxxer", name = "HikariCP", version.ref = "hikaricp" }
 mariadb-java-client = { group = "org.mariadb.jdbc", name = "mariadb-java-client", version.ref = "mariadbJavaClient" }
 postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
