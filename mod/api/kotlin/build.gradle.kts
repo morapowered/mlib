@@ -5,15 +5,15 @@ plugins {
 }
 
 dependencies {
-    modImplementation(libs.fabric.api)
+    modApi(libs.fabric.api)
     modApi(libs.fabric.language.kotlin)
 
-    modImplementation(libs.gooeylibs.fabric)
-    modImplementation(libs.adventure.platform.fabric)
+    modImplementation(libs.fabric.loader)
 
-    implementation(project(":mod:api", configuration = "namedElements")) {
-        isTransitive = false
-    }
+    modApi(libs.gooeylibs.fabric)
+    modApi(libs.adventure.platform.fabric)
+
+    api(project(":mod:api", configuration = "namedElements"))
 
     api(project(":common:kotlin"))  {
         exclude("org.jetbrains.kotlin")
@@ -23,5 +23,4 @@ dependencies {
         exclude("net.kyori", "adventure-text-minimessage")
         exclude("io.netty")
     }
-
 }

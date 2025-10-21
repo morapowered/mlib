@@ -50,4 +50,10 @@ tasks {
         options.encoding = "UTF-8"
         options.release = 21
     }
+
+    jar {
+        manifest {
+            attributes("Fabric-Loom-Remap" to true)
+        }
+    }
 }
