@@ -1,12 +1,16 @@
 package io.github.morapowered.mlib
 
 import com.mojang.logging.LogUtils
-import io.github.morapowered.mlib.configuration.internal.ConfigurationKotlinSerializers
+import io.github.morapowered.configuration.ConfigurationFactory
 import io.github.morapowered.mlib.platform.ModPlatform
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint
 import net.minecraft.server.MinecraftServer
 import org.slf4j.Logger
+import org.spongepowered.configurate.ScopedConfigurationNode
+import org.spongepowered.configurate.kotlin.dataClassFieldDiscoverer
+import org.spongepowered.configurate.loader.AbstractConfigurationLoader
+import org.spongepowered.configurate.objectmapping.ObjectMapper
 
 object MLibMod : PreLaunchEntrypoint, ModPlatform() {
 
@@ -29,7 +33,21 @@ object MLibMod : PreLaunchEntrypoint, ModPlatform() {
 
     override fun init() {
         super.init()
-        ConfigurationKotlinSerializers.register()
+    }
+
+    override fun <L : AbstractConfigurationLoader<N>, N : ScopedConfigurationNode<N>, B : AbstractConfigurationLoader.Builder<B, L>> createConfigurationFactory(
+        builder: Class<B>
+    ): ConfigurationFactory.Builder<L, N, B>? {
+        return super.createConfigurationFactory(builder)
+            .configure { builder ->
+                builder.defaultOptions { options ->
+                    options.serializers { serializerBuilder ->
+                        serializerBuilder.registerAnnotatedObjects(
+                            ObjectMapper.factoryBuilder().addDiscoverer(dataClassFieldDiscoverer()).build()
+                        )
+                    }
+                }
+            }
     }
 
     override fun getServer(): MinecraftServer {

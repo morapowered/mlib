@@ -7,12 +7,12 @@ import io.lettuce.core.RedisURI;
 import java.io.Closeable;
 import java.io.IOException;
 
-public class RedisConnectionProvider implements Closeable {
+public class RedisConnectionFactory implements Closeable {
 
     private final RedisConfiguration configuration;
     private RedisClient client;
 
-    public RedisConnectionProvider(RedisConfiguration configuration) {
+    public RedisConnectionFactory(RedisConfiguration configuration) {
         this.configuration = configuration;
     }
 

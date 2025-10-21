@@ -1,8 +1,25 @@
+import java.util.*
+
 plugins {
+    id("mlib.base-conventions")
     `maven-publish`
 }
 
+val localProperties: Properties by project.extra
+
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/morapowered/packages")
+            credentials {
+                username = localProperties.getProperty("gpr.username") ?: System.getenv("GH_USERNAME")
+                password = localProperties.getProperty("gpr.token") ?: System.getenv("GH_TOKEN")
+            }
+        }
+        mavenLocal()
+    }
+
     publications {
         create<MavenPublication>(project.name) {
             from(components["java"])
@@ -17,7 +34,4 @@ publishing {
         }
     }
 
-    repositories {
-        mavenLocal()
-    }
 }

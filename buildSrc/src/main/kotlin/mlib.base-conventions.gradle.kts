@@ -1,10 +1,20 @@
+import org.gradle.internal.extensions.core.extra
+import java.util.Properties
+import kotlin.io.path.inputStream
+
 plugins {
     java
     `java-library`
 }
 
-//group = rootProject.group
 version = rootProject.version
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.toPath().toAbsolutePath().inputStream())
+}
+project.extra.set("localProperties", localProperties)
 
 java {
     toolchain {
@@ -16,14 +26,23 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
+
 repositories {
-    mavenCentral()
-    mavenLocal()
-    maven("https://maven.neoforged.net/releases")
+    maven("https://maven.fabricmc.net/")
     maven("https://maven.impactdev.net/repository/development/")
     maven("https://maven.parchmentmc.org")
     maven("https://repo.papermc.io/repository/maven-public/")
-    maven(url = "https://thedarkcolour.github.io/KotlinForForge/")
+    maven("https://maven.pkg.github.com/morapowered/packages") {
+        credentials {
+            username = localProperties.getProperty("gpr.username") ?: System.getenv("GH_USERNAME")
+            password = localProperties.getProperty("gpr.token") ?: System.getenv("GH_TOKEN")
+        }
+        content {
+            includeGroup("io.github.morapowered")
+        }
+    }
+    mavenCentral()
+    mavenLocal()
 }
 
 tasks {

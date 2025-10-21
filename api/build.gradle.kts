@@ -14,4 +14,5 @@ dependencies {
     api(libs.bundles.adventure)
     api(libs.bundles.sql)
     api(libs.channels)
+    api(libs.util)
 }

@@ -4,8 +4,8 @@ import io.github.morapowered.mlib.inventory.item.serializer.InventoryItemSeriali
 import io.github.morapowered.mlib.inventory.item.types.CommandItem;
 import io.github.morapowered.mlib.inventory.item.types.PlayerHeadItem;
 import io.github.morapowered.mlib.inventory.item.types.SimpleItem;
-import io.github.morapowered.mlib.util.function.CheckedBiConsumer;
-import io.github.morapowered.mlib.util.function.CheckedFunction;
+import io.github.morapowered.util.function.CheckedBiConsumer;
+import io.github.morapowered.util.function.CheckedFunction;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 

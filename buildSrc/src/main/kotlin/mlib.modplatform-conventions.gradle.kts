@@ -1,5 +1,3 @@
-import gradle.kotlin.dsl.accessors._1169d4f1d0026c4f82c35d8cb5959f57.loom
-
 plugins {
     id("mlib.mod-conventions")
     id("mlib.platform-conventions")

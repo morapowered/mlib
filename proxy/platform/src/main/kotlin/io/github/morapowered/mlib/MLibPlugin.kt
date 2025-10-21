@@ -7,10 +7,14 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
-import io.github.morapowered.mlib.configuration.internal.ConfigurationKotlinSerializers
+import io.github.morapowered.configuration.ConfigurationFactory
 import io.github.morapowered.mlib.platform.ProxyPlatform
 import io.github.morapowered.mlib.util.BuildParameters
 import org.slf4j.Logger
+import org.spongepowered.configurate.ScopedConfigurationNode
+import org.spongepowered.configurate.kotlin.dataClassFieldDiscoverer
+import org.spongepowered.configurate.loader.AbstractConfigurationLoader
+import org.spongepowered.configurate.objectmapping.ObjectMapper
 import java.nio.file.Path
 
 @Plugin(id = "mlib", name = "mlib", version = BuildParameters.VERSION, authors = ["Pedro Souza", "mlib Contributors"])
@@ -31,12 +35,26 @@ class MLibPlugin : ProxyPlatform {
     @Subscribe
     fun onInitialize(event: ProxyInitializeEvent?) {
         init()
-        ConfigurationKotlinSerializers.register()
     }
 
     @Subscribe
     fun onShutdown(event: ProxyShutdownEvent?) {
         shutdown()
+    }
+
+    override fun <L : AbstractConfigurationLoader<N>, N : ScopedConfigurationNode<N>, B : AbstractConfigurationLoader.Builder<B, L>> createConfigurationFactory(
+        builder: Class<B>
+    ): ConfigurationFactory.Builder<L, N, B>? {
+        return super.createConfigurationFactory(builder)
+            .configure { builder ->
+                builder.defaultOptions { options ->
+                    options.serializers { serializerBuilder ->
+                        serializerBuilder.registerAnnotatedObjects(
+                            ObjectMapper.factoryBuilder().addDiscoverer(dataClassFieldDiscoverer()).build()
+                        )
+                    }
+                }
+            }
     }
 
     override fun getName(): String = "proxy"

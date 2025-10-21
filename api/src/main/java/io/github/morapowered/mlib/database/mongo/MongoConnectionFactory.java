@@ -1,6 +1,6 @@
 package io.github.morapowered.mlib.database.mongo;
 
-public class MongoConnectionProvider {
+public class MongoConnectionFactory {
 
 
 

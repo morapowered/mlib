@@ -1,6 +1,5 @@
 plugins {
     id("mlib.modplatform-conventions")
-    id("mlib.modpublish-conventions")
     id("mlib.kotlin-conventions")
 }
 

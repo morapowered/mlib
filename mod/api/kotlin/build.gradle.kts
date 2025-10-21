@@ -5,13 +5,13 @@ plugins {
 }
 
 dependencies {
-    modApi(libs.fabric.api)
+    modImplementation(libs.fabric.api)
     modApi(libs.fabric.language.kotlin)
 
-    modApi(libs.gooeylibs.fabric)
-    modApi(libs.adventure.platform.fabric)
+    modImplementation(libs.gooeylibs.fabric)
+    modImplementation(libs.adventure.platform.fabric)
 
-    api(project(":mod:api", configuration = "namedElements")) {
+    implementation(project(":mod:api", configuration = "namedElements")) {
         isTransitive = false
     }
 

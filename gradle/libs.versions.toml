@@ -8,13 +8,14 @@ versioning = "3.1.0"
 
 # Api
 configuration = "1.0.0-SNAPSHOT"
-configurate = "4.2.0"
+configurate = "4.1.0"
 channels = "1.0.0-SNAPSHOT"
 hikaricp = "7.0.2"
 mariadbJavaClient = "3.5.5"
 postgresql = "42.7.7"
 sqlite = "3.50.3.0"
 adventure = "4.17.0"
+util = "1.0.0-SNAPSHOT"
 
 # Common
 slf4jApi = "2.0.17"
@@ -53,6 +54,7 @@ postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "pos
 sqlite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqlite" }
 adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
 adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
+util = { group = "io.github.morapowered", name = "util", version.ref = "util" }
 
 # Common
 slf4jApi = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4jApi" }
