@@ -21,6 +21,9 @@ jobs:
           gradle-version: wrapper
       - name: Build
         run: gradle clean build
+        env:
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Publish test report
         uses: mikepenz/action-junit-report@v5
         if: success() || failure()
