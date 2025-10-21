@@ -41,4 +41,15 @@ public class RedisConnectionFactory implements Closeable {
             client.close();
         }
     }
+
+    public boolean isInitialized() {
+        return client != null;
+    }
+
+    public RedisClient getClient() {
+        if (client == null) {
+            throw new IllegalStateException("Unable to get client (client is null).");
+        }
+        return client;
+    }
 }
