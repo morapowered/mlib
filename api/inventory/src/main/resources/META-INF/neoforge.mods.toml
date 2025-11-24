@@ -1,0 +1,34 @@
+modLoader="javafml" #mandatory
+loaderVersion="[4,)" #mandatory
+license="MIT License"
+authors="Pedro Souza" #optional
+
+[[mixins]]
+config = "inventory.mixins.json"
+
+[[mods]] #mandatory
+modId="inventory_api" #mandatory
+version="${version}" #mandatory
+displayName="inventory-api" #mandatory
+description='''A inventory API to expand GooeyLibs to create easy inventories.'''
+
+[[dependencies.inventory_api]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.inventory_api]] #optional
+modId="gooeylibs_api" #mandatory
+type="required" #mandatory
+versionRange="[3.1.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.inventory_api]] #optional
+modId="adventure_platform_neoforge" #mandatory
+type="required" #mandatory
+versionRange="[6.0.0,)"
+ordering="NONE"
+side="BOTH"

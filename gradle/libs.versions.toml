@@ -1,0 +1,84 @@
+[versions]
+# plugins
+loom = "1.13-SNAPSHOT"
+architectury-plugin = "3.4-SNAPSHOT"
+shadow = "9.2.2"
+blossom = "2.1.0"
+versioning = "3.1.0"
+licenser = "0.6.1"
+
+annotations = "26.0.2"
+lombok = "1.18.42"
+reactor = "3.6.6"
+channels = "1.0.0-SNAPSHOT"
+
+# configuration
+configurate = "4.1.2"
+
+# database
+hikaricp = "7.0.2"
+mysql-connector-j = "9.5.0"
+mariadb-java-client = "3.5.5"
+postgresql = "42.7.7"
+sqlite = "3.50.3.0"
+h2 = "2.4.240"
+gson = "2.13.2"
+lettuce = "7.1.0.RELEASE"
+
+# inventory
+gooeylibs = "3.1.1-1.21.x"
+adventure-platform-mod-shared = "6.0.0"
+
+# fabric
+fabric-loader = "0.17.2"
+fabric-api = "0.116.6+1.21.1"
+
+# neoforge
+neoforge = "21.1.215"
+
+# velocity
+velocity = "3.4.0-SNAPSHOT"
+
+[libraries]
+# plugins
+loom = { group = "dev.architectury", name = "architectury-loom", version.ref = "loom" }
+architectury = { group = "architectury-plugin", name = "architectury-plugin.gradle.plugin", version.ref = "architectury-plugin" }
+shadow = { group = "com.gradleup.shadow", name = "com.gradleup.shadow.gradle.plugin", version.ref = "shadow" }
+blossom = { group = "net.kyori", name = "blossom", version.ref = "blossom" }
+versioning = { group = "net.nemerosa.versioning", name = "net.nemerosa.versioning.gradle.plugin", version.ref = "versioning" }
+licenser = { group = "gradle.plugin.org.cadixdev.gradle", name = "licenser", version.ref = "licenser" }
+
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
+reactor-core = { group = "io.projectreactor", name = "reactor-core", version.ref = "reactor" }
+channels-bom = { group = "io.github.morapowered.channels", name = "bom", version.ref = "channels" }
+
+# configuration
+configurate-core = { group = "org.spongepowered", name = "configurate-core", version.ref = "configurate" }
+configurate-yaml = { group = "org.spongepowered", name = "configurate-yaml", version.ref = "configurate" }
+configurate-hocon = { group = "org.spongepowered", name = "configurate-hocon", version.ref = "configurate" }
+configurate-gson = { group = "org.spongepowered", name = "configurate-gson", version.ref = "configurate" }
+
+# database
+hikaricp = { group = "com.zaxxer", name = "HikariCP", version.ref = "hikaricp" }
+mysql-connector-j = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysql-connector-j" }
+mariadb-java-client = { group = "org.mariadb.jdbc", name = "mariadb-java-client", version.ref = "mariadb-java-client" }
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+sqlite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqlite" }
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+lettuce-core = { group = "io.lettuce", name = "lettuce-core", version.ref = "lettuce" }
+
+# inventory
+gooeylibs-api = { group = "ca.landonjw.gooeylibs", name = "api", version.ref = "gooeylibs" }
+adventure-platform-mod-shared = { group = "net.kyori", name = "adventure-platform-mod-shared", version.ref = "adventure-platform-mod-shared" }
+
+# fabric
+fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }
+fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.ref = "fabric-api" }
+
+# neoforge
+neoforge = { group = "net.neoforged", name = "neoforge", version.ref = "neoforge" }
+
+# velocity
+velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }

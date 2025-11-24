@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "mlib",
+  "version": "${version}",
+  "name": "mlib",
+  "authors": [
+    "Pedro Souza"
+  ],
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.morapowered.mlib.MLibFabricMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "gooeylibs": ">=3.1.1",
+    "adventure-platform-fabric": ">=5.14.1"
+  }
+}
