@@ -1,6 +1,5 @@
 plugins {
-    id("base-conventions")
-    id("publish-conventions")
+    id("component-conventions")
 }
 
 dependencies {

@@ -37,6 +37,30 @@ dependencies {
         exclude("io.projectreactor")
         exclude("org.slf4j", "slf4j-api")
     }
+    api(project(":api:database:redis:serializer-configurate"))  {
+        exclude("io.netty")
+        exclude("io.projectreactor")
+        exclude("org.slf4j", "slf4j-api")
+        exclude("org.spongepowered", "configurate-core")
+    }
+    bundle(project(":api:database:redis:serializer-configurate")) {
+        exclude("io.netty")
+        exclude("io.projectreactor")
+        exclude("org.slf4j", "slf4j-api")
+        exclude("com.google.code.gson")
+    }
+    api(project(":api:database:redis:serializer-gson"))  {
+        exclude("io.netty")
+        exclude("io.projectreactor")
+        exclude("org.slf4j", "slf4j-api")
+        exclude("com.google.code.gson")
+    }
+    bundle(project(":api:database:redis:serializer-gson")) {
+        exclude("io.netty")
+        exclude("io.projectreactor")
+        exclude("org.slf4j", "slf4j-api")
+        exclude("org.spongepowered", "configurate-core")
+    }
     api(project(":api:database:sql:bom")) {
         exclude("com.google.code.gson")
         exclude("org.slf4j", "slf4j-api")
@@ -76,9 +100,11 @@ dependencies {
     api(libs.channels.bom) {
         exclude("io.lettuce")
         exclude("com.google.code.gson")
+        exclude("org.jetbrains", "annotations")
     }
     bundle(libs.channels.bom) {
         exclude("io.lettuce")
         exclude("com.google.code.gson")
+        exclude("org.jetbrains", "annotations")
     }
 }
