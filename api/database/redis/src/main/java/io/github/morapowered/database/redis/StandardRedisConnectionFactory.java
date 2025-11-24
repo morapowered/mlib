@@ -24,13 +24,14 @@
 
 package io.github.morapowered.database.redis;
 
+import io.github.morapowered.database.redis.configuration.RedisConfiguration;
 import io.github.morapowered.database.redis.configuration.StandardRedisConfiguration;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisConnectionException;
 import io.lettuce.core.RedisURI;
 import org.jetbrains.annotations.NotNull;
 
-public class StandardRedisConnectionFactory implements RedisConnectionFactory<StandardRedisConfiguration> {
+public class StandardRedisConnectionFactory implements RedisConnectionFactory {
 
     public static StandardRedisConnectionFactory create() {
         return new StandardRedisConnectionFactory();
@@ -43,7 +44,10 @@ public class StandardRedisConnectionFactory implements RedisConnectionFactory<St
     }
 
     @Override
-    public void setup(@NotNull StandardRedisConfiguration configuration) {
+    public void setup(@NotNull RedisConfiguration passedConfiguration) {
+        if (!(passedConfiguration instanceof StandardRedisConfiguration configuration)) {
+            throw new IllegalStateException("Invalid standard configuration");
+        }
         String[] split = configuration.getHost().split(":");
         String address = split[0];
         int port = split.length > 1 ? Integer.parseInt(split[1]) : RedisURI.DEFAULT_REDIS_PORT;

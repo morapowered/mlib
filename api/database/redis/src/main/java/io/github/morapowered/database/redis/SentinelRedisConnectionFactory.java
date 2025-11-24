@@ -24,17 +24,20 @@
 
 package io.github.morapowered.database.redis;
 
+import io.github.morapowered.database.redis.configuration.RedisConfiguration;
 import io.github.morapowered.database.redis.configuration.sentinel.SentinelRedisConfiguration;
 import io.lettuce.core.RedisClient;
 import org.jetbrains.annotations.NotNull;
 
-public class SentinelRedisConnectionFactory implements RedisConnectionFactory<SentinelRedisConfiguration>  {
+public class SentinelRedisConnectionFactory implements RedisConnectionFactory {
 
     // TODO
 
     @Override
-    public void setup(@NotNull SentinelRedisConfiguration configuration) {
-
+    public void setup(@NotNull RedisConfiguration configuration) {
+        if (!(configuration instanceof SentinelRedisConfiguration)) {
+            throw new IllegalStateException("Invalid sentinel configuration");
+        }
     }
 
     @Override

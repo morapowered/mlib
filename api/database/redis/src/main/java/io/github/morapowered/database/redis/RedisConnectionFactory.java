@@ -28,9 +28,9 @@ import io.github.morapowered.database.redis.configuration.RedisConfiguration;
 import io.lettuce.core.RedisClient;
 import org.jetbrains.annotations.NotNull;
 
-public interface RedisConnectionFactory<T extends RedisConfiguration> {
+public interface RedisConnectionFactory {
 
-    void setup(@NotNull T configuration);
+    void setup(@NotNull RedisConfiguration configuration);
 
     void shutdown();
 
