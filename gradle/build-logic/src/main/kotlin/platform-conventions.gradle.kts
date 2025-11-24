@@ -17,12 +17,12 @@ val bundle: Configuration by configurations.creating {
 }
 
 configurations {
-    create("implementationAndBundle") {
+    create("implementationAndBundle").apply {
         extendsFrom(getByName("bundle"))
         extendsFrom(getByName("implementation"))
     }
 
-    create("apiAndBundle") {
+    create("apiAndBundle").apply {
         extendsFrom(getByName("bundle"))
         extendsFrom(getByName("api"))
     }
