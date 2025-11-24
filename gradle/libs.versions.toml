@@ -28,6 +28,7 @@ lettuce = "7.1.0.RELEASE"
 # inventory
 gooeylibs = "3.1.1-1.21.x"
 adventure-platform-mod-shared = "6.0.0"
+adventure-platform-fabric = "5.14.1"
 
 # fabric
 fabric-loader = "0.17.2"
@@ -71,7 +72,12 @@ lettuce-core = { group = "io.lettuce", name = "lettuce-core", version.ref = "let
 
 # inventory
 gooeylibs-api = { group = "ca.landonjw.gooeylibs", name = "api", version.ref = "gooeylibs" }
+gooeylibs-fabric= { group = "ca.landonjw.gooeylibs", name = "fabric", version.ref = "gooeylibs" }
+gooeylibs-neoforge = { group = "ca.landonjw.gooeylibs", name = "neoforge", version.ref = "gooeylibs" }
 adventure-platform-mod-shared = { group = "net.kyori", name = "adventure-platform-mod-shared", version.ref = "adventure-platform-mod-shared" }
+adventure-platform-fabric = { group = "net.kyori", name = "adventure-platform-fabric", version.ref = "adventure-platform-fabric" }
+adventure-platform-neoforge = { group = "net.kyori", name = "adventure-platform-neoforge", version.ref = "adventure-platform-mod-shared" }
+
 
 # fabric
 fabric-loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "fabric-loader" }

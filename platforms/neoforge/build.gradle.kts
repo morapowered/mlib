@@ -81,8 +81,8 @@ dependencies {
 
     api(project(":api:inventory", configuration = "namedElements")) { isTransitive = false }
     include(project(":api:inventory")) { isTransitive = false }
-    modApi(libs.gooeylibs.api)
-    modApi(libs.adventure.platform.mod.shared)
+    modApi(libs.gooeylibs.neoforge)
+    modApi(libs.adventure.platform.neoforge)
 
     api(libs.configurate.core)
     bundle(libs.configurate.core)
