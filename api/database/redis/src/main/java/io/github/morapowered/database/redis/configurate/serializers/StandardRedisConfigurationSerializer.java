@@ -52,9 +52,9 @@ public class StandardRedisConfigurationSerializer implements TypeSerializer<Stan
             node.set(null);
             return;
         }
-        node.set(KeyConstants.HOST).set(value.getHost());
-        node.set(KeyConstants.PASSWORD).set(value.getPassword());
-        node.set(KeyConstants.DATABSE).set(value.getDatabase());
-        node.set(KeyConstants.USE_SSL).set(value.isSsl());
+        node.node(KeyConstants.HOST).set(value.getHost());
+        node.node(KeyConstants.PASSWORD).set(value.getPassword());
+        node.node(KeyConstants.DATABSE).set(value.getDatabase());
+        node.node(KeyConstants.USE_SSL).set(value.isSsl());
     }
 }

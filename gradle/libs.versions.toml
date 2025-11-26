@@ -23,7 +23,7 @@ postgresql = "42.7.7"
 sqlite = "3.50.3.0"
 h2 = "2.4.240"
 gson = "2.13.2"
-lettuce = "7.1.0.RELEASE"
+lettuce = "6.6.0.RELEASE"
 
 # inventory
 gooeylibs = "3.1.1-1.21.x"
