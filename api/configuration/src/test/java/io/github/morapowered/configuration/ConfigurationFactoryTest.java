@@ -24,13 +24,12 @@
 
 package io.github.morapowered.configuration;
 
+import io.github.morapowered.configuration.util.ConfigurationSource;
 import io.github.morapowered.configuration.value.NodeConfiguration;
 import io.github.morapowered.configuration.value.ObjectMappingConfiguration;
-import io.github.morapowered.util.io.Duplex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import org.spongepowered.configurate.yaml.NodeStyle;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
@@ -49,7 +48,7 @@ class ConfigurationFactoryTest {
                         .nodeStyle(NodeStyle.BLOCK))
                 .build();
 
-        NodeConfiguration<YamlConfigurationLoader, CommentedConfigurationNode> nodeConfiguration = loader.load(Duplex.resource("test_config.yml"));
+        NodeConfiguration<YamlConfigurationLoader, CommentedConfigurationNode> nodeConfiguration = loader.load(ConfigurationSource.resource("test_config.yml"));
         CommentedConfigurationNode node = nodeConfiguration.getNode();
         Assertions.assertEquals("Hello world!", node.node("message").require(String.class));
     }
@@ -63,7 +62,7 @@ class ConfigurationFactoryTest {
 
         Path path = Paths.get("test_mapped_configuration.yml");
         Files.deleteIfExists(path);
-        Duplex duplex = Duplex.path(path);
+        ConfigurationSource duplex = ConfigurationSource.path(path);
 
         // First to create!
         ObjectMappingConfiguration<MappedConfiguration, YamlConfigurationLoader, CommentedConfigurationNode> mappingConfiguration = loader.loadObjectOrDefaultAndSave(duplex, new MappedConfiguration());

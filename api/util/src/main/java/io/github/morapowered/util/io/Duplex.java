@@ -61,12 +61,7 @@ public interface Duplex extends Readable, Writable {
     static Duplex path(final @NotNull Path path, final @NotNull OpenOption... options) {
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(options, "options");
-        return stream(() -> {
-            if (Files.exists(path)) {
-                return Files.newInputStream(path, options);
-            }
-            return null;
-        }, () -> Files.newOutputStream(path, options));
+        return stream(() -> Files.newInputStream(path, options), () -> Files.newOutputStream(path, options));
     }
 
     static Duplex file(final @NotNull File file, final @NotNull OpenOption... options) {

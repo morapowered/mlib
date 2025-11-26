@@ -8,7 +8,6 @@ dependencies {
     compileOnly(libs.annotations)
 
     api(libs.configurate.core)
-    api(project(":api:util"))
 
     testImplementation(libs.configurate.yaml)
 }

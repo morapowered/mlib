@@ -24,7 +24,7 @@
 
 package io.github.morapowered.configuration.value;
 
-import io.github.morapowered.util.io.Duplex;
+import io.github.morapowered.configuration.util.ConfigurationSource;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ScopedConfigurationNode;
 import org.spongepowered.configurate.loader.AbstractConfigurationLoader;
@@ -33,14 +33,14 @@ import java.io.IOException;
 
 public interface NodeConfiguration<L extends AbstractConfigurationLoader<N>, N extends ScopedConfigurationNode<@NotNull N>> {
 
-    @NotNull Duplex getDuplex();
+    @NotNull ConfigurationSource getSource();
 
     @NotNull L getLoader();
 
     @NotNull N getNode();
 
     default void save() throws IOException {
-        if (getLoader().canSave() && getDuplex().isWritable()) {
+        if (getLoader().canSave()) {
             getLoader().save(getNode());
         }
     }

@@ -24,7 +24,7 @@
 
 package io.github.morapowered.configuration.value;
 
-import io.github.morapowered.util.io.Duplex;
+import io.github.morapowered.configuration.util.ConfigurationSource;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ScopedConfigurationNode;
 import org.spongepowered.configurate.loader.AbstractConfigurationLoader;
@@ -33,21 +33,21 @@ import java.util.Objects;
 
 public class NodeConfigurationImpl<L extends AbstractConfigurationLoader<N>, N extends ScopedConfigurationNode<@NotNull N>> implements NodeConfiguration<L, N> {
 
-    private final Duplex duplex;
+    private final ConfigurationSource source;
     private final L loader;
     private final N node;
 
 
-    public NodeConfigurationImpl(Duplex duplex, L loader, N node) {
-        this.duplex = duplex;
+    public NodeConfigurationImpl(ConfigurationSource source, L loader, N node) {
+        this.source = source;
         this.loader = Objects.requireNonNull(loader, "loader");
         this.node = Objects.requireNonNull(node, "node");
 
     }
 
     @Override
-    public @NotNull Duplex getDuplex() {
-        return duplex;
+    public @NotNull ConfigurationSource getSource() {
+        return source;
     }
 
     @Override

@@ -40,7 +40,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 @FunctionalInterface
-public interface Readable {
+public interface    Readable {
 
     @Nullable InputStream createInputStream() throws IOException;
 
@@ -80,15 +80,12 @@ public interface Readable {
         return inputStreamSupplier::get;
     }
 
+
+
     static Readable path(final @NotNull Path path, final @NotNull OpenOption... options) {
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(options, "options");
-        return () -> {
-            if (Files.exists(path)) {
-                return Files.newInputStream(path, options);
-            }
-            return null;
-        };
+        return () -> Files.newInputStream(path, options);
     }
 
     static Readable file(final @NotNull File file, final @NotNull OpenOption... options) {

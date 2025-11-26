@@ -26,7 +26,6 @@ package io.github.morapowered.configuration.value;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ScopedConfigurationNode;
 import org.spongepowered.configurate.loader.AbstractConfigurationLoader;
 
@@ -49,7 +48,7 @@ public interface ObjectMappingConfiguration<T,
     }
 
     default void saveObject() throws IOException {
-        if (getLoader().canSave() && getDuplex().isWritable()) {
+        if (getLoader().canSave()) {
             getNode().set(getValue());
             getLoader().save(getNode());
         }

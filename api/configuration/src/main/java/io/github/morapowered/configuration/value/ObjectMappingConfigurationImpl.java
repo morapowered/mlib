@@ -24,7 +24,7 @@
 
 package io.github.morapowered.configuration.value;
 
-import io.github.morapowered.util.io.Duplex;
+import io.github.morapowered.configuration.util.ConfigurationSource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.configurate.ScopedConfigurationNode;
@@ -34,8 +34,8 @@ public class ObjectMappingConfigurationImpl<T, L extends AbstractConfigurationLo
 
     private final T value;
 
-    public ObjectMappingConfigurationImpl(Duplex duplex, L loader, N node, T value) {
-        super(duplex, loader, node);
+    public ObjectMappingConfigurationImpl(ConfigurationSource source, L loader, N node, T value) {
+        super(source, loader, node);
         this.value = value;
     }
 

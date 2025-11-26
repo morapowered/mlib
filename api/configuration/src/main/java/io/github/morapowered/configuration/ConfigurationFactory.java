@@ -24,10 +24,10 @@
 
 package io.github.morapowered.configuration;
 
+import io.github.morapowered.configuration.util.ConfigurationSource;
 import io.github.morapowered.configuration.util.UpdatedVersion;
 import io.github.morapowered.configuration.value.NodeConfiguration;
 import io.github.morapowered.configuration.value.ObjectMappingConfiguration;
-import io.github.morapowered.util.io.Duplex;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -50,25 +50,25 @@ public interface ConfigurationFactory<L extends AbstractConfigurationLoader<@Not
 
     @NotNull B getBuilder();
 
-    @NotNull NodeConfiguration<L, N> load(final @NotNull Duplex duplex) throws IOException;
+    @NotNull NodeConfiguration<L, N> load(final @NotNull ConfigurationSource source) throws IOException;
 
-    default @NotNull NodeConfiguration<L, N> load(final @NotNull Duplex duplex, final @NotNull ConfigurationTransformation.Versioned versioned) throws IOException {
-        final NodeConfiguration<L, N> nodeConfiguration = load(duplex);
+    default @NotNull NodeConfiguration<L, N> load(final @NotNull ConfigurationSource source, final @NotNull ConfigurationTransformation.Versioned versioned) throws IOException {
+        final NodeConfiguration<L, N> nodeConfiguration = load(source);
         updateNode(nodeConfiguration.getNode(), versioned, (startVersion, endVersion) -> nodeConfiguration.save());
         return nodeConfiguration;
     }
 
-    @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObject(final @NotNull Duplex duplex, Class<T> objectClass) throws IOException;
+    @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObject(final @NotNull ConfigurationSource source, Class<T> objectClass) throws IOException;
 
-    default @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObject(final @NotNull Duplex duplex, Class<T> objectClass, final @NotNull ConfigurationTransformation.Versioned versioned) throws IOException {
-        load(duplex, versioned); // Update node first, post load object mapped
-        return loadObject(duplex, objectClass);
+    default @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObject(final @NotNull ConfigurationSource source, Class<T> objectClass, final @NotNull ConfigurationTransformation.Versioned versioned) throws IOException {
+        load(source, versioned); // Update node first, post load object mapped
+        return loadObject(source, objectClass);
     }
 
-    @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObjectOrDefault(final @NotNull Duplex duplex, @NotNull T defaultValue) throws IOException;
+    @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObjectOrDefault(final @NotNull ConfigurationSource source, @NotNull T defaultValue) throws IOException;
 
-    default @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObjectOrDefaultAndSave(final @NotNull Duplex duplex, @NotNull T defaultValue) throws IOException {
-        final ObjectMappingConfiguration<T, L, N> objectMappingConfiguration = loadObjectOrDefault(duplex, defaultValue);
+    default @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObjectOrDefaultAndSave(final @NotNull ConfigurationSource source, @NotNull T defaultValue) throws IOException {
+        final ObjectMappingConfiguration<T, L, N> objectMappingConfiguration = loadObjectOrDefault(source, defaultValue);
         objectMappingConfiguration.saveObject();
         return objectMappingConfiguration;
     }

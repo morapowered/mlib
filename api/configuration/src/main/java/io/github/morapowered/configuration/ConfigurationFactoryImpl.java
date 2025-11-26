@@ -24,13 +24,12 @@
 
 package io.github.morapowered.configuration;
 
+import io.github.morapowered.configuration.util.ConfigurationSource;
 import io.github.morapowered.configuration.value.NodeConfiguration;
 import io.github.morapowered.configuration.value.NodeConfigurationImpl;
 import io.github.morapowered.configuration.value.ObjectMappingConfiguration;
 import io.github.morapowered.configuration.value.ObjectMappingConfigurationImpl;
-import io.github.morapowered.util.io.Duplex;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ScopedConfigurationNode;
 import org.spongepowered.configurate.loader.AbstractConfigurationLoader;
 
@@ -56,41 +55,32 @@ public class ConfigurationFactoryImpl<L extends AbstractConfigurationLoader<@Not
     }
 
     @Override
-    public @NotNull NodeConfiguration<L, N> load(@NotNull Duplex duplex) throws IOException {
-        Objects.requireNonNull(duplex, "duplex");
-        if (duplex.isReadable()) {
-            throw new ConfigurateException("No source present to read from!");
-        }
-        L loader = builder.source(duplex::createReader).sink(duplex::createWriter).build();
+    public @NotNull NodeConfiguration<L, N> load(@NotNull ConfigurationSource source) throws IOException {
+        Objects.requireNonNull(source, "source");
+        L loader = builder.source(source.getSource()).sink(source.getSink()).build();
         N node = loader.load();
-        return new NodeConfigurationImpl<>(duplex, loader, node);
+        return new NodeConfigurationImpl<>(source, loader, node);
     }
 
     @Override
-    public @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObject(@NotNull Duplex duplex, Class<T> objectClass) throws IOException {
-        Objects.requireNonNull(duplex, "duplex");
+    public @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObject(@NotNull ConfigurationSource source, Class<T> objectClass) throws IOException {
+        Objects.requireNonNull(source, "source");
         Objects.requireNonNull(objectClass, "objectClass");
-        if (duplex.isReadable()) {
-            throw new ConfigurateException("No source present to read from!");
-        }
-        L loader = builder.source(duplex::createReader).sink(duplex::createWriter).build();
+        L loader = builder.source(source.getSource()).sink(source.getSink()).build();
         N node = loader.load();
         T value = node.get(objectClass);
-        return new ObjectMappingConfigurationImpl<>(duplex, loader, node, value);
+        return new ObjectMappingConfigurationImpl<>(source, loader, node, value);
     }
 
     @Override
-    public @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObjectOrDefault(@NotNull Duplex duplex, @NotNull T defaultValue) throws IOException {
-        Objects.requireNonNull(duplex, "duplex");
+    public @NotNull <T> ObjectMappingConfiguration<T, L, N> loadObjectOrDefault(@NotNull ConfigurationSource source, @NotNull T defaultValue) throws IOException {
+        Objects.requireNonNull(source, "source");
         Objects.requireNonNull(defaultValue, "defaultValue");
-        if (duplex.isReadable()) {
-            throw new ConfigurateException("No source present to read from!");
-        }
-        L loader = builder.source(duplex::createReader).sink(duplex::createWriter).build();
+        L loader = builder.source(source.getSource()).sink(source.getSink()).build();
         N node = loader.load();
         @SuppressWarnings("unchecked")
         T value = (T) node.get(defaultValue.getClass(), defaultValue);
-        return new ObjectMappingConfigurationImpl<>(duplex, loader, node, value);
+        return new ObjectMappingConfigurationImpl<>(source, loader, node, value);
     }
 
     static class BuilderImpl<L extends AbstractConfigurationLoader<@NotNull N>,
