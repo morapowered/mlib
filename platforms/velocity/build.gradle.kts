@@ -14,69 +14,34 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
-    api(project(":platforms:common"))
-    bundle(project(":platforms:common"))
+    apiAndBundle(project(":platforms:common"))
 
-    api(project(":api:configuration")) {
+    apiAndBundle(project(":api:configuration")) {
         exclude("org.spongepowered", "configurate-core")
     }
-    bundle(project(":api:configuration")) {
-        exclude("org.spongepowered", "configurate-core")
-    }
-    api(project(":api:database:mongo"))
-    bundle(project(":api:database:mongo"))
-    api(project(":api:database:redis-bom")) {
+    apiAndBundle(project(":api:database:mongo"))
+    apiAndBundle(project(":api:database:redis")) {
         exclude("io.netty")
         exclude("io.projectreactor")
         exclude("org.slf4j", "slf4j-api")
         exclude("org.spongepowered", "configurate-core")
         exclude("com.google.code.gson")
     }
-    bundle(project(":api:database:redis-bom")) {
-        exclude("io.netty")
-        exclude("io.projectreactor")
-        exclude("org.slf4j", "slf4j-api")
-        exclude("org.spongepowered", "configurate-core")
-        exclude("com.google.code.gson")
-    }
-    api(project(":api:database:sql-bom")) {
+    apiAndBundle(project(":api:database:sql")) {
         exclude("com.google.code.gson")
         exclude("org.slf4j", "slf4j-api")
         exclude("org.spongepowered", "configurate-core")
     }
-    bundle(project(":api:database:sql-bom")) {
-        exclude("com.google.code.gson")
-        exclude("org.slf4j", "slf4j-api")
-        exclude("org.spongepowered", "configurate-core")
+    apiAndBundle(project(":api:util"))
 
-    }
-    api(project(":api:util"))
-    bundle(project(":api:util"))
+    apiAndBundle(libs.reactor.core)
 
-    api(libs.reactor.core)
-    bundle(libs.reactor.core)
-
-    api(libs.channels.bom) {
-        exclude("io.lettuce")
-        exclude("com.google.code.gson")
-        exclude("org.jetbrains", "annotations")
-    }
-    bundle(libs.channels.bom) {
+    apiAndBundle(libs.channels.bom) {
         exclude("io.lettuce")
         exclude("com.google.code.gson")
         exclude("org.jetbrains", "annotations")
     }
 
-    implementation(libs.mariadb.java.client)
-    bundle(libs.mariadb.java.client)
-    implementation(libs.mysql.connector.j)
-    bundle(libs.mysql.connector.j)
-    implementation(libs.postgresql)
-    bundle(libs.postgresql)
-    implementation(libs.sqlite)
-    bundle(libs.sqlite)
-    implementation(libs.h2)
-    bundle(libs.h2)
 }
 
 tasks {

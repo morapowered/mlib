@@ -17,15 +17,7 @@ include(":api:configuration")
 // Database
 include(":api:database:mongo")
 include(":api:database:redis")
-include(":api:database:redis-bom")
-include(":api:database:redis-serializer-gson")
-include(":api:database:redis-serializer-configurate")
-include(":api:database:sql-api")
-include(":api:database:sql-bom")
-include(":api:database:sql-driver-based")
-include(":api:database:sql-driver-based-serializer-configurate")
-include(":api:database:sql-driver-based-serializer-gson")
-include(":api:database:sql-file-based")
+include(":api:database:sql")
 
 // Inventory
 include(":api:inventory")

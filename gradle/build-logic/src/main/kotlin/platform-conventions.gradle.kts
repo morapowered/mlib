@@ -10,21 +10,21 @@ plugins {
 version = writeVersion(VersionType.PLATFORM)
 
 
+val apiAndBundle: Configuration by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
+
 val bundle: Configuration by configurations.creating {
     isCanBeConsumed = false
     isCanBeResolved = true
-
+    extendsFrom(apiAndBundle)
 }
 
-configurations {
-    create("implementationAndBundle").apply {
-        extendsFrom(getByName("bundle"))
-        extendsFrom(getByName("implementation"))
-    }
 
-    create("apiAndBundle").apply {
-        extendsFrom(getByName("bundle"))
-        extendsFrom(getByName("api"))
+configurations {
+    getByName("api") {
+        extendsFrom(apiAndBundle)
     }
 }
 

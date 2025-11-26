@@ -42,9 +42,9 @@ public interface ConfigurationFactory<L extends AbstractConfigurationLoader<@Not
         N extends ScopedConfigurationNode<@NotNull N>,
         B extends AbstractConfigurationLoader.Builder<B, L>> {
 
-    static <L extends AbstractConfigurationLoader<@NotNull N>,
-            N extends ScopedConfigurationNode<@NotNull N>,
-            B extends AbstractConfigurationLoader.Builder<B, L>> Builder<L, N, B> builder(Class<B> loaderClass) {
+    static <L1 extends AbstractConfigurationLoader<@NotNull N1>,
+            N1 extends ScopedConfigurationNode<@NotNull N1>,
+            B1 extends AbstractConfigurationLoader.Builder<B1, L1>> Builder<L1, N1, B1> builder(Class<B1> loaderClass) {
         return new ConfigurationFactoryImpl.BuilderImpl<>(loaderClass);
     }
 

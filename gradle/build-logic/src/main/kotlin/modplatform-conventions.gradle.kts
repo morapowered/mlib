@@ -9,22 +9,24 @@ plugins {
 
 version = writeVersion(VersionType.MOD_PLATFORM)
 
-val bundle: Configuration by configurations.creating {
+val apiAndBundle: Configuration by configurations.creating {
     isCanBeConsumed = false
     isCanBeResolved = true
 }
 
-configurations {
-    create("implementationAndBundle") {
-        extendsFrom(getByName("bundle"))
-        extendsFrom(getByName("implementation"))
-    }
+val bundle: Configuration by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+    extendsFrom(apiAndBundle)
+}
 
-    create("apiAndBundle") {
-        extendsFrom(getByName("bundle"))
-        extendsFrom(getByName("api"))
+
+configurations {
+    getByName("api") {
+        extendsFrom(apiAndBundle)
     }
 }
+
 
 tasks {
 
