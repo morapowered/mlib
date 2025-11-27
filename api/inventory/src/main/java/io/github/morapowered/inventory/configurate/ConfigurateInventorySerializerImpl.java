@@ -46,12 +46,11 @@ import java.util.Objects;
 
 public class ConfigurateInventorySerializerImpl implements ConfigurateInventorySerializer {
 
-    public static final ConfigurateInventorySerializer INSTANCE = new BuilderImpl().build();
-
     public static final Map<ResourceLocation, ConfigurateItemSerializer<?>> DEFAULT_ITEM_SERIALIZERS =
             Map.of(ItemType.SIMPLE.getKey(), SimpleItemSerializer.INSTANCE,
                     ItemType.COMMAND.getKey(), new CommandItemSerializer(),
                     ItemType.PLAYER_HEAD.getKey(), new PlayerHeadItemSerializer());
+    public static final ConfigurateInventorySerializer INSTANCE = new BuilderImpl().build();
 
     private final TypeSerializerCollection serializers;
 
