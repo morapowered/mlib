@@ -19,7 +19,11 @@ dependencies {
     apiAndBundle(project(":api:configuration")) {
         exclude("org.spongepowered", "configurate-core")
     }
-    apiAndBundle(project(":api:database:mongo"))
+    apiAndBundle(project(":api:database:mongo")) {
+        exclude("io.projectreactor")
+        exclude("org.spongepowered", "configurate-core")
+        exclude("com.google.code.gson")
+    }
     apiAndBundle(project(":api:database:redis")) {
         exclude("io.netty")
         exclude("io.projectreactor")

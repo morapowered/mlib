@@ -24,6 +24,7 @@ sqlite = "3.50.3.0"
 h2 = "2.4.240"
 gson = "2.13.2"
 lettuce = "6.6.0.RELEASE"
+mongodb = "5.6.1"
 
 # inventory
 gooeylibs = "3.1.1-1.21.x"
@@ -69,10 +70,12 @@ sqlite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqlite" }
 h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 lettuce-core = { group = "io.lettuce", name = "lettuce-core", version.ref = "lettuce" }
+mongodb-driver-sync = { group = "org.mongodb", name = "mongodb-driver-sync", version.ref = "mongodb" }
+mongodb-driver-reactivestreams = { group = "org.mongodb", name = "mongodb-driver-reactivestreams", version.ref = "mongodb" }
 
 # inventory
 gooeylibs-api = { group = "ca.landonjw.gooeylibs", name = "api", version.ref = "gooeylibs" }
-gooeylibs-fabric= { group = "ca.landonjw.gooeylibs", name = "fabric", version.ref = "gooeylibs" }
+gooeylibs-fabric = { group = "ca.landonjw.gooeylibs", name = "fabric", version.ref = "gooeylibs" }
 gooeylibs-neoforge = { group = "ca.landonjw.gooeylibs", name = "neoforge", version.ref = "gooeylibs" }
 adventure-platform-mod-shared = { group = "net.kyori", name = "adventure-platform-mod-shared", version.ref = "adventure-platform-mod-shared" }
 adventure-platform-fabric = { group = "net.kyori", name = "adventure-platform-fabric", version.ref = "adventure-platform-fabric" }
