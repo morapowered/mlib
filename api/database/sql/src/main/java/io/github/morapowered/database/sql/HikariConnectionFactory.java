@@ -26,6 +26,7 @@ package io.github.morapowered.database.sql;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.github.morapowered.database.sql.configuration.DatabaseConfiguration;
 import io.github.morapowered.database.sql.configuration.DriverBasedDatabaseConfiguration;
 import io.github.morapowered.database.sql.configuration.PoolConfiguration;
 import lombok.Getter;
@@ -41,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  * (c) lucko (Luck) <luck@lucko.me> and contributors — licensed under the MIT License
  * Rewritten and adapted by Pedro Souza in 2025
  */
-public abstract class HikariConnectionFactory implements ConnectionFactory<DriverBasedDatabaseConfiguration> {
+public abstract class HikariConnectionFactory implements ConnectionFactory {
 
 
     private final @Getter String poolName;
@@ -52,7 +53,10 @@ public abstract class HikariConnectionFactory implements ConnectionFactory<Drive
     }
 
     @Override
-    public void setup(DriverBasedDatabaseConfiguration configuration) {
+    public void setup(DatabaseConfiguration passedConfiguration) {
+        if (!(passedConfiguration instanceof DriverBasedDatabaseConfiguration configuration)) {
+            throw new IllegalStateException("Invalid configuration; driver based configuration is required.");
+        }
         HikariConfig config = new HikariConfig();
 
         config.setPoolName(poolName);

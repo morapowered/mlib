@@ -35,11 +35,11 @@ import java.sql.SQLException;
  * (c) lucko (Luck) <luck@lucko.me> and contributors — licensed under the MIT License
  * Rewritten and adapted by Pedro Souza in 2025
  */
-public interface ConnectionFactory<T extends DatabaseConfiguration> {
+public interface ConnectionFactory {
 
     @NotNull String getImplementationName();
 
-    void setup(T configuration);
+    void setup(DatabaseConfiguration configuration);
 
     void shutdown();
 
