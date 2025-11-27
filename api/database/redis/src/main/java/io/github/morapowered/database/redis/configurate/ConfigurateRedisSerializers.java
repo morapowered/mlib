@@ -24,13 +24,16 @@
 
 package io.github.morapowered.database.redis.configurate;
 
+import io.github.morapowered.database.redis.configurate.serializers.StandardRedisConfigurationSerializer;
+import io.github.morapowered.database.redis.configuration.StandardRedisConfiguration;
 import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
-@Deprecated
-public interface ConfigurationRediSerializers {
+public interface ConfigurateRedisSerializers {
 
     static TypeSerializerCollection serializers() {
-        return ConfigurateRedisSerializers.serializers();
+        return TypeSerializerCollection.builder()
+                .register(StandardRedisConfiguration.class, new StandardRedisConfigurationSerializer())
+                .build();
     }
 
 }
