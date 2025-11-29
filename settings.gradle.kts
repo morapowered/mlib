@@ -28,6 +28,7 @@ include(":api:inventory")
 include(":api:util")
 
 include(":platforms:common")
+include(":platforms:paper")
 include(":platforms:fabric")
 include(":platforms:neoforge")
 include(":platforms:velocity")

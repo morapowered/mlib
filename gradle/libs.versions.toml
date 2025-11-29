@@ -41,6 +41,9 @@ neoforge = "21.1.215"
 # velocity
 velocity = "3.4.0-SNAPSHOT"
 
+# paper
+paper-api = "1.21.1-R0.1-SNAPSHOT"
+
 [libraries]
 # plugins
 loom = { group = "dev.architectury", name = "architectury-loom", version.ref = "loom" }
@@ -88,6 +91,9 @@ fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.r
 
 # neoforge
 neoforge = { group = "net.neoforged", name = "neoforge", version.ref = "neoforge" }
+
+# paper
+paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api"}
 
 # velocity
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }

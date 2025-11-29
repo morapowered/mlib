@@ -22,39 +22,25 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform;
+package io.github.morapowered.mlib;
 
-import io.github.morapowered.mlib.platform.internal.InternalPlatform;
-import io.github.morapowered.mlib.util.BuildParameters;
-import org.jetbrains.annotations.ApiStatus;
-import org.slf4j.Logger;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Field;
+public class MLibPlugin extends JavaPlugin {
+    private final MLibPaper mLibPaper;
 
-@ApiStatus.Internal
-public abstract class AbstractPlatform implements Platform {
-
-    public AbstractPlatform() {
-        try {
-            Field platformField = InternalPlatform.class.getDeclaredField("platform");
-            platformField.setAccessible(true);
-            platformField.set(null, this);
-            platformField.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
+    public MLibPlugin() {
+        this.mLibPaper = new MLibPaper(getSLF4JLogger());
     }
 
-    public void init() {
-        getLogger().info("mlib {} (version: {}, branch: {}, build: {})", getName(), isMod() ? BuildParameters.MOD_VERSION : BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
+    @Override
+    public void onLoad() {
+        mLibPaper.init();
     }
 
-    public void shutdown() {
-        getLogger().info("mlib shutdown");
+    @Override
+    public void onDisable() {
+        mLibPaper.shutdown();
     }
-
-    protected abstract Logger getLogger();
-
-    protected abstract boolean isMod();
 
 }

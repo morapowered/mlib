@@ -22,39 +22,30 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform;
+package io.github.morapowered.mlib;
 
-import io.github.morapowered.mlib.platform.internal.InternalPlatform;
-import io.github.morapowered.mlib.util.BuildParameters;
-import org.jetbrains.annotations.ApiStatus;
+import io.github.morapowered.mlib.platform.AbstractPlatform;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import java.lang.reflect.Field;
+@RequiredArgsConstructor
+public class MLibPaper extends AbstractPlatform {
 
-@ApiStatus.Internal
-public abstract class AbstractPlatform implements Platform {
+    private final Logger logger;
 
-    public AbstractPlatform() {
-        try {
-            Field platformField = InternalPlatform.class.getDeclaredField("platform");
-            platformField.setAccessible(true);
-            platformField.set(null, this);
-            platformField.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
+    @Override
+    protected Logger getLogger() {
+        return logger;
     }
 
-    public void init() {
-        getLogger().info("mlib {} (version: {}, branch: {}, build: {})", getName(), isMod() ? BuildParameters.MOD_VERSION : BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
+    @Override
+    protected boolean isMod() {
+        return false;
     }
 
-    public void shutdown() {
-        getLogger().info("mlib shutdown");
+    @Override
+    public @NotNull String getName() {
+        return "paper";
     }
-
-    protected abstract Logger getLogger();
-
-    protected abstract boolean isMod();
-
 }
