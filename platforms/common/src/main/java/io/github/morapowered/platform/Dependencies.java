@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform;
+package io.github.morapowered.platform;
 
 import io.github.morapowered.depencymanager.Dependency;
 
@@ -31,6 +31,11 @@ public interface Dependencies {
     Dependency REACTOR_CORE = Dependency.builder()
             .coordinates("io.projectreactor:reactor-core:3.6.6")
             .build();
+
+    Dependency REACTOR_STREAMS = Dependency.builder()
+            .coordinates("org.reactivestreams:reactive-streams:1.0.4")
+            .build();
+
 
     Dependency CONFIGURATE_CORE = Dependency.builder()
             .coordinates("org.spongepowered:configurate-core:4.1.2")

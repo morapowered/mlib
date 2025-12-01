@@ -22,20 +22,17 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.classpath;
+package io.github.morapowered.platform.fabric.classpath;
 
 import io.github.morapowered.loaderutils.classpath.ClassPathAppender;
-import io.github.morapowered.mlib.platform.ProxyPlatform;
-import lombok.RequiredArgsConstructor;
+import net.fabricmc.loader.impl.launch.FabricLauncherBase;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 
-@RequiredArgsConstructor
-public class VelocityClassPathAppender implements ClassPathAppender {
-
+public class FabricClassPathAppender implements ClassPathAppender {
     @Override
     public void addJarToClasspath(@NotNull Path file) {
-        ProxyPlatform.get().getServer().getPluginManager().addToClasspath(ProxyPlatform.get(), file);
+        FabricLauncherBase.getLauncher().addToClassPath(file);
     }
 }

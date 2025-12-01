@@ -22,39 +22,24 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.platform.velocity;
 
-import io.github.morapowered.mlib.util.BuildParameters;
+import com.velocitypowered.api.proxy.ProxyServer;
 import io.github.morapowered.platform.Platform;
 import io.github.morapowered.platform.provider.PlatformProvider;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+public interface ProxyPlatform extends Platform {
 
-public class MLibPaper extends JavaPlugin implements Platform {
-
-    public MLibPaper() {
-        try {
-            Class<PlatformProvider> clazz = PlatformProvider.class;
-            Method method = clazz.getDeclaredMethod("set", Platform.class);
-            method.setAccessible(true);
-            method.invoke(null, this);
-            method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-            throw new IllegalStateException("Fail initializing mlib", ex);
+    static ProxyPlatform get() {
+        Platform platform = PlatformProvider.get();
+        if (!(platform instanceof ProxyPlatform modPlatform)) {
+            throw new IllegalStateException("This platform is not a proxy platform");
         }
+        return modPlatform;
     }
 
-    @Override
-    public void onLoad() {
-        getSLF4JLogger().info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-        // Start Dependency Maznager here?
-    }
+    @NotNull ProxyServer getServer();
 
-    @Override
-    public @NotNull String getImplementationName() {
-        return "paper";
-    }
+
 }

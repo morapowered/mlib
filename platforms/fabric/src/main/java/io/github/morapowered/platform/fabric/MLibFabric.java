@@ -22,16 +22,16 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.platform.fabric;
 
 import com.mojang.logging.LogUtils;
 import io.github.morapowered.depencymanager.DependencyManager;
-import io.github.morapowered.mlib.classpath.FabricClassPathAppender;
-import io.github.morapowered.mlib.dependencies.FabricDependencies;
-import io.github.morapowered.mlib.util.BuildParameters;
 import io.github.morapowered.platform.ModPlatform;
 import io.github.morapowered.platform.Platform;
+import io.github.morapowered.platform.fabric.classpath.FabricClassPathAppender;
+import io.github.morapowered.platform.fabric.dependencies.FabricDependencies;
 import io.github.morapowered.platform.provider.PlatformProvider;
+import io.github.morapowered.platform.util.BuildParameters;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;

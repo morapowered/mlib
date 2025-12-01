@@ -24,11 +24,11 @@
 
 package io.github.morapowered.inventory.configurate.item;
 
-import io.github.morapowered.inventory.util.CheckedSupplier;
-import io.github.morapowered.inventory.util.ItemKeyConstants;
 import io.github.morapowered.inventory.configurate.util.ConfigurateUtil;
 import io.github.morapowered.inventory.item.SimpleItem;
 import io.github.morapowered.inventory.item.builder.ItemAbstractBuilder;
+import io.github.morapowered.inventory.util.ItemKeyConstants;
+import io.github.morapowered.util.function.CheckedSupplier;
 import net.minecraft.core.registries.BuiltInRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ConfigurationNode;

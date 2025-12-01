@@ -22,17 +22,13 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.classpath;
+package io.github.morapowered.platform.util;
 
-import io.github.morapowered.loaderutils.classpath.ClassPathAppender;
-import net.fabricmc.loader.impl.launch.FabricLauncherBase;
-import org.jetbrains.annotations.NotNull;
+public class BuildParameters {
 
-import java.nio.file.Path;
+    public static final String VERSION = "{{ version }}";
+    public static final String MOD_VERSION = "{{ mod_version }}";
+    public static final String BRANCH = "{{ branch }}";
+    public static final String BUILD = "{{ build }}";
 
-public class FabricClassPathAppender implements ClassPathAppender {
-    @Override
-    public void addJarToClasspath(@NotNull Path file) {
-        FabricLauncherBase.getLauncher().addToClassPath(file);
-    }
 }

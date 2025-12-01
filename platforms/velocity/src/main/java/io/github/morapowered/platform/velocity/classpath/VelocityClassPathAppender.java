@@ -22,28 +22,20 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.dependencies;
+package io.github.morapowered.platform.velocity.classpath;
 
-import io.github.morapowered.depencymanager.Dependency;
-import io.github.morapowered.mlib.platform.Dependencies;
+import io.github.morapowered.loaderutils.classpath.ClassPathAppender;
+import io.github.morapowered.platform.velocity.ProxyPlatform;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
+import java.nio.file.Path;
 
-public interface VelocityDependencies {
+@RequiredArgsConstructor
+public class VelocityClassPathAppender implements ClassPathAppender {
 
-    Set<Dependency> DEPENDENCIES = Set.of(
-            Dependencies.REACTOR_CORE,
-            Dependencies.HIKARICP,
-            Dependencies.MYSQL_CONNECTOR_J,
-            Dependencies.MARIADB_JAVA_CLIENT,
-            Dependencies.POSTGRESQL,
-            Dependencies.SQLITE,
-            Dependencies.H2,
-            Dependencies.LETTUCE_CORE,
-            Dependencies.MONGODB_DRIVER_SYNC,
-            Dependencies.MONGODB_DRIVER_REACTIVESTREAMS,
-            Dependencies.MONGODB_BSON,
-            Dependencies.MONGODB_DRIVER_CORE
-    );
-
+    @Override
+    public void addJarToClasspath(@NotNull Path file) {
+        ProxyPlatform.get().getServer().getPluginManager().addToClasspath(ProxyPlatform.get(), file);
+    }
 }

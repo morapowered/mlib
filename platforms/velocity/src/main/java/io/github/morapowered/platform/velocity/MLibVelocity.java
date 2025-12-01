@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.platform.velocity;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
@@ -31,12 +31,11 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.github.morapowered.depencymanager.DependencyManager;
-import io.github.morapowered.mlib.classpath.VelocityClassPathAppender;
-import io.github.morapowered.mlib.dependencies.VelocityDependencies;
-import io.github.morapowered.mlib.platform.ProxyPlatform;
-import io.github.morapowered.mlib.util.BuildParameters;
 import io.github.morapowered.platform.Platform;
 import io.github.morapowered.platform.provider.PlatformProvider;
+import io.github.morapowered.platform.util.BuildParameters;
+import io.github.morapowered.platform.velocity.classpath.VelocityClassPathAppender;
+import io.github.morapowered.platform.velocity.dependencies.VelocityDependencies;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

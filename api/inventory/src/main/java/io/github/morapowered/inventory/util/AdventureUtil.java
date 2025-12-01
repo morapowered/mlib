@@ -24,17 +24,13 @@
 
 package io.github.morapowered.inventory.util;
 
+import io.github.morapowered.platform.ModPlatform;
 import net.kyori.adventure.platform.modcommon.MinecraftServerAudiences;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.MinecraftServer;
-import org.jetbrains.annotations.ApiStatus;
 
 public class AdventureUtil {
-
-    @ApiStatus.Internal
-    private static MinecraftServer server;
 
     public static Component text(String text) {
         return text(component(text));
@@ -50,7 +46,7 @@ public class AdventureUtil {
     }
 
     private static MinecraftServerAudiences getServerAudiences() {
-        return MinecraftServerAudiences.of(server);
+        return MinecraftServerAudiences.of(ModPlatform.get().getMinecraftServer());
     }
 
 }

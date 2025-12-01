@@ -20,4 +20,7 @@ dependencies {
     api(libs.gooeylibs.api)
     api(libs.adventure.platform.mod.shared)
     api(libs.configurate.core)
+
+    implementation(project(":api:util"))
+    implementation(project(":api:mod-platform", configuration = "namedElements"))
 }

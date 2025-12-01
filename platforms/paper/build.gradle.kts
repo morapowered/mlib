@@ -14,16 +14,21 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
-    apiAndBundle(project(":api:platform")) { isTransitive = false }
-    apiAndBundle(project(":platforms:common")) { isTransitive = false }
-    apiAndBundle(project(":api:configuration")) { isTransitive = false }
-    apiAndBundle(project(":api:database:mongo")) { isTransitive = false }
-    apiAndBundle(project(":api:database:redis")) { isTransitive = false }
-    apiAndBundle(project(":api:database:sql")) { isTransitive = false }
-    apiAndBundle(project(":api:util")) { isTransitive = false }
+    listOf(
+        ":api:platform",
+        ":platforms:common",
+        ":api:configuration",
+        ":api:database:mongo",
+        ":api:database:redis",
+        ":api:database:sql",
+        ":api:util",
+    ).forEach {
+        api(project(it))
+        bundle(project(it)) { isTransitive = false }
+    }
 
     api(libs.reactor.core)
-    apiAndBundle(libs.channels.bom)  {
+    apiAndBundle(libs.channels.bom) {
         exclude("io.lettuce")
         exclude("com.google.code.gson")
         exclude("org.jetbrains", "annotations")

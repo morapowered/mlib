@@ -9,7 +9,7 @@
   "environment": "*",
   "entrypoints": {
     "preLaunch": [
-      "io.github.morapowered.mlib.MLibFabric"
+      "io.github.morapowered.platform.fabric.MLibFabric"
     ]
   },
   "depends": {

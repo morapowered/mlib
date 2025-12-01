@@ -22,13 +22,29 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.util;
+package io.github.morapowered.platform.velocity.dependencies;
 
-public class BuildParameters {
+import io.github.morapowered.depencymanager.Dependency;
+import io.github.morapowered.platform.Dependencies;
 
-    public static final String VERSION = "{{ version }}";
-    public static final String MOD_VERSION = "{{ mod_version }}";
-    public static final String BRANCH = "{{ branch }}";
-    public static final String BUILD = "{{ build }}";
+import java.util.Set;
+
+public interface VelocityDependencies {
+
+    Set<Dependency> DEPENDENCIES = Set.of(
+            Dependencies.REACTOR_CORE,
+            Dependencies.REACTOR_STREAMS,
+            Dependencies.HIKARICP,
+            Dependencies.MYSQL_CONNECTOR_J,
+            Dependencies.MARIADB_JAVA_CLIENT,
+            Dependencies.POSTGRESQL,
+            Dependencies.SQLITE,
+            Dependencies.H2,
+            Dependencies.LETTUCE_CORE,
+            Dependencies.MONGODB_DRIVER_SYNC,
+            Dependencies.MONGODB_DRIVER_REACTIVESTREAMS,
+            Dependencies.MONGODB_BSON,
+            Dependencies.MONGODB_DRIVER_CORE
+    );
 
 }

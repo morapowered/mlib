@@ -24,7 +24,7 @@
 
 name: mlib
 version: ${version}
-main: io.github.morapowered.mlib.MLibPaper
+main: io.github.morapowered.platform.paper.MLibPaper
 author: Pedro Souza
 libraries:
   - org.spongepowered:configurate-core:4.1.2

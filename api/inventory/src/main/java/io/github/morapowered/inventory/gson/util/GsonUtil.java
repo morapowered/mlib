@@ -27,7 +27,7 @@ package io.github.morapowered.inventory.gson.util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
-import io.github.morapowered.inventory.util.CheckedSupplier;
+import io.github.morapowered.util.function.CheckedSupplier;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.resources.ResourceLocation;
 

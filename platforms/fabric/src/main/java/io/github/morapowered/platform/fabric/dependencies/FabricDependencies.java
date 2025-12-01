@@ -22,24 +22,36 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform;
+package io.github.morapowered.platform.fabric.dependencies;
 
-import com.velocitypowered.api.proxy.ProxyServer;
-import io.github.morapowered.platform.Platform;
-import io.github.morapowered.platform.provider.PlatformProvider;
-import org.jetbrains.annotations.NotNull;
+import io.github.morapowered.depencymanager.Dependency;
+import io.github.morapowered.platform.Dependencies;
 
-public interface ProxyPlatform extends Platform  {
+import java.util.Set;
 
-    static ProxyPlatform get() {
-        Platform platform = PlatformProvider.get();
-        if (!(platform instanceof ProxyPlatform modPlatform)) {
-            throw new IllegalStateException("This platform is not a proxy platform");
-        }
-        return modPlatform;
-    }
+public interface FabricDependencies {
 
-    @NotNull ProxyServer getServer();
-
+    Set<Dependency> DEPENDENCIES = Set.of(
+            Dependencies.REACTOR_CORE,
+            Dependencies.REACTOR_STREAMS,
+            Dependencies.CONFIGURATE_CORE,
+            Dependencies.GEANTYREF,
+            Dependencies.CONFIGURATE_HOCON,
+            Dependencies.HOCON_CONFIG,
+            Dependencies.CONFIGURATE_YAML,
+            Dependencies.SNAKE_YAML,
+            Dependencies.CONFIGURATE_GSON,
+            Dependencies.HIKARICP,
+            Dependencies.MYSQL_CONNECTOR_J,
+            Dependencies.MARIADB_JAVA_CLIENT,
+            Dependencies.POSTGRESQL,
+            Dependencies.SQLITE,
+            Dependencies.H2,
+            Dependencies.LETTUCE_CORE,
+            Dependencies.MONGODB_DRIVER_SYNC,
+            Dependencies.MONGODB_DRIVER_REACTIVESTREAMS,
+            Dependencies.MONGODB_BSON,
+            Dependencies.MONGODB_DRIVER_CORE
+    );
 
 }
