@@ -22,17 +22,23 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform;
+package io.github.morapowered.loaderutils.classloader;
 
-import io.github.morapowered.mlib.platform.internal.InternalPlatform;
-import org.jetbrains.annotations.NotNull;
+import java.net.URL;
+import java.net.URLClassLoader;
 
-public interface Platform {
+/*
+ * Based on concepts and structure from the "LuckPerms" (https://github.com/LuckPerms/LuckPerms/)
+ * (c) lucko (Luck) <luck@lucko.me> and contributors — licensed under the MIT License
+ * Rewritten and adapted by Pedro Souza in 2025
+ */
+public class IsolatedClassLoader extends URLClassLoader {
 
-    static @NotNull Platform get() {
-        return InternalPlatform.getPlatform();
+    static {
+        ClassLoader.registerAsParallelCapable();
     }
 
-    @NotNull String getName();
-
+    public IsolatedClassLoader(URL[] urls) {
+        super(urls, ClassLoader.getSystemClassLoader().getParent());
+    }
 }

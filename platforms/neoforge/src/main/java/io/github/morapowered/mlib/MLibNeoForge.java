@@ -25,46 +25,64 @@
 package io.github.morapowered.mlib;
 
 import com.mojang.logging.LogUtils;
-import io.github.morapowered.mlib.platform.AbstractPlatform;
-import lombok.Getter;
+import io.github.morapowered.mlib.util.BuildParameters;
+import io.github.morapowered.platform.ModPlatform;
+import io.github.morapowered.platform.Platform;
+import io.github.morapowered.platform.provider.PlatformProvider;
+import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 @Mod(value = "mlib")
-public class MLibNeoForgeMod extends AbstractPlatform {
+public class MLibNeoForge implements ModPlatform {
 
-    private final @Getter Logger logger = LogUtils.getLogger();
+    private final Logger logger = LogUtils.getLogger();
+    private MinecraftServer server;
 
-    public MLibNeoForgeMod(IEventBus eventBus) {
-        super();
-
+    public MLibNeoForge(IEventBus eventBus) {
+        try {
+            Class<PlatformProvider> clazz = PlatformProvider.class;
+            Method method = clazz.getDeclaredMethod("set", Platform.class);
+            method.setAccessible(true);
+            method.invoke(null, this);
+            method.setAccessible(false);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+            throw new IllegalStateException("Fail initializing mlib", ex);
+        }
         eventBus.addListener(this::initialize);
         NeoForge.EVENT_BUS.register(this);
     }
 
     public void initialize(FMLCommonSetupEvent event) {
-        init();
-    }
-
-    @Override
-    protected boolean isMod() {
-        return true;
-    }
-
-
-    @Override
-    public @NotNull String getName() {
-        return "neoforge";
+        logger.info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
+        // Start Dependency Manager
     }
 
     @SubscribeEvent
-    public void onServerStopping(ServerStoppingEvent event) {
-        shutdown();
+    public void onServerStopping(ServerStartingEvent event) {
+        this.server = event.getServer();
+    }
+
+    @Override
+    public @NotNull MinecraftServer getMinecraftServer() {
+        if (server == null) {
+            throw new IllegalStateException("Server has not been started yet");
+        }
+        return server;
+    }
+
+
+    @Override
+    public @NotNull String getImplementationName() {
+        return "neoforge";
     }
 }

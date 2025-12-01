@@ -24,18 +24,33 @@
 
 package io.github.morapowered.mlib;
 
+import com.mojang.logging.LogUtils;
+import io.github.morapowered.depencymanager.DependencyManager;
+import io.github.morapowered.mlib.classpath.FabricClassPathAppender;
+import io.github.morapowered.mlib.dependencies.FabricDependencies;
 import io.github.morapowered.mlib.util.BuildParameters;
+import io.github.morapowered.platform.ModPlatform;
 import io.github.morapowered.platform.Platform;
 import io.github.morapowered.platform.provider.PlatformProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 
-public class MLibPaper extends JavaPlugin implements Platform {
+public class MLibFabric implements ModPlatform, PreLaunchEntrypoint {
 
-    public MLibPaper() {
+    private final Logger logger = LogUtils.getLogger();
+    private final FabricClassPathAppender classPathAppender = new FabricClassPathAppender();
+    private final Path workDir = FabricLoader.getInstance().getConfigDir().resolve("mlib/");
+    private MinecraftServer server;
+
+    public MLibFabric() {
         try {
             Class<PlatformProvider> clazz = PlatformProvider.class;
             Method method = clazz.getDeclaredMethod("set", Platform.class);
@@ -48,13 +63,33 @@ public class MLibPaper extends JavaPlugin implements Platform {
     }
 
     @Override
-    public void onLoad() {
-        getSLF4JLogger().info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-        // Start Dependency Maznager here?
+    public void onPreLaunch() {
+        logger.info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
+        DependencyManager dependencyManager = DependencyManager.builder()
+                .withMavenCentral()
+                .dir(workDir.resolve("libraries/"))
+                .build();
+        try {
+            dependencyManager.loadDependencies(FabricDependencies.DEPENDENCIES);
+            dependencyManager.apply(classPathAppender);
+            logger.info("mlib Loaded {} dependencies.", FabricDependencies.DEPENDENCIES.size());
+        } catch (Exception ex) {
+            throw new IllegalStateException("Fail resolving dependencies: " + ex.getMessage(), ex);
+        }
+        ServerLifecycleEvents.SERVER_STARTING.register(minecraftServer -> this.server = minecraftServer);
+    }
+
+    @Override
+    public @NotNull MinecraftServer getMinecraftServer() {
+        if (server == null) {
+            throw new IllegalStateException("Server has not been started yet");
+        }
+        return server;
     }
 
     @Override
     public @NotNull String getImplementationName() {
-        return "paper";
+        return "fabric";
     }
+
 }

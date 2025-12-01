@@ -24,18 +24,40 @@
 
 package io.github.morapowered.mlib;
 
+import com.google.inject.Inject;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.proxy.ProxyServer;
+import io.github.morapowered.depencymanager.DependencyManager;
+import io.github.morapowered.mlib.classpath.VelocityClassPathAppender;
+import io.github.morapowered.mlib.dependencies.VelocityDependencies;
+import io.github.morapowered.mlib.platform.ProxyPlatform;
 import io.github.morapowered.mlib.util.BuildParameters;
 import io.github.morapowered.platform.Platform;
 import io.github.morapowered.platform.provider.PlatformProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 
-public class MLibPaper extends JavaPlugin implements Platform {
+@Plugin(id = "mlib", name = "mlib", version = BuildParameters.VERSION, authors = {"Pedro Souza"})
+public class MLibVelocity implements ProxyPlatform {
 
-    public MLibPaper() {
+    private final @Getter Logger logger;
+    private final @Getter ProxyServer server;
+    private final Path workDir;
+
+    @Inject
+    public MLibVelocity(Logger logger, ProxyServer server, @DataDirectory Path workDir) {
+        this.logger = logger;
+        this.server = server;
+        this.workDir = workDir;
+
         try {
             Class<PlatformProvider> clazz = PlatformProvider.class;
             Method method = clazz.getDeclaredMethod("set", Platform.class);
@@ -45,16 +67,28 @@ public class MLibPaper extends JavaPlugin implements Platform {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
             throw new IllegalStateException("Fail initializing mlib", ex);
         }
+
     }
 
-    @Override
-    public void onLoad() {
-        getSLF4JLogger().info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-        // Start Dependency Maznager here?
+    @Subscribe
+    public void onProxyInitialize(ProxyInitializeEvent event) {
+        VelocityClassPathAppender classPathAppender = new VelocityClassPathAppender();
+        logger.info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
+        DependencyManager dependencyManager = DependencyManager.builder()
+                .withMavenCentral()
+                .dir(workDir.resolve("libraries/"))
+                .build();
+        try {
+            dependencyManager.loadDependencies(VelocityDependencies.DEPENDENCIES);
+            dependencyManager.apply(classPathAppender);
+            logger.info("Loaded {} dependencies.", VelocityDependencies.DEPENDENCIES.size());
+        } catch (Exception ex) {
+            throw new IllegalStateException("Fail resolving dependencies: " + ex.getMessage(), ex);
+        }
     }
 
     @Override
     public @NotNull String getImplementationName() {
-        return "paper";
+        return "proxy";
     }
 }

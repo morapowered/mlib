@@ -22,37 +22,29 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.platform.provider;
 
-import com.mojang.logging.LogUtils;
-import io.github.morapowered.mlib.platform.AbstractPlatform;
-import lombok.Getter;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
+import io.github.morapowered.platform.Platform;
+import org.jetbrains.annotations.ApiStatus;
 
-public class MLibFabricMod extends AbstractPlatform implements ModInitializer {
+public class PlatformProvider {
 
-    private final @Getter Logger logger = LogUtils.getLogger();
+    @ApiStatus.Internal
+    private static Platform instance;
 
-    @Override
-    public void onInitialize() {
-        init();
-        ServerLifecycleEvents.SERVER_STOPPING.register(minecraftServer -> shutdownServer());
+    public static Platform get() {
+        if (instance == null) {
+            throw new IllegalStateException("Platform not initialized yet (instance returned null).");
+        }
+        return instance;
     }
 
-    private void shutdownServer() {
-        shutdown();
+    @ApiStatus.Internal
+    private static void set(Platform platform) {
+        if (instance != null) {
+            throw new IllegalStateException("Platform is already initialized.");
+        }
+        instance = platform;
     }
 
-    @Override
-    protected boolean isMod() {
-        return true;
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "fabric";
-    }
 }

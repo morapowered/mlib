@@ -22,39 +22,28 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform;
+package io.github.morapowered.mlib.dependencies;
 
-import io.github.morapowered.mlib.platform.internal.InternalPlatform;
-import io.github.morapowered.mlib.util.BuildParameters;
-import org.jetbrains.annotations.ApiStatus;
-import org.slf4j.Logger;
+import io.github.morapowered.depencymanager.Dependency;
+import io.github.morapowered.mlib.platform.Dependencies;
 
-import java.lang.reflect.Field;
+import java.util.Set;
 
-@ApiStatus.Internal
-public abstract class AbstractPlatform implements Platform {
+public interface VelocityDependencies {
 
-    public AbstractPlatform() {
-        try {
-            Field platformField = InternalPlatform.class.getDeclaredField("platform");
-            platformField.setAccessible(true);
-            platformField.set(null, this);
-            platformField.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    public void init() {
-        getLogger().info("mlib {} (version: {}, branch: {}, build: {})", getName(), isMod() ? BuildParameters.MOD_VERSION : BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-    }
-
-    public void shutdown() {
-        getLogger().info("mlib shutdown");
-    }
-
-    protected abstract Logger getLogger();
-
-    protected abstract boolean isMod();
+    Set<Dependency> DEPENDENCIES = Set.of(
+            Dependencies.REACTOR_CORE,
+            Dependencies.HIKARICP,
+            Dependencies.MYSQL_CONNECTOR_J,
+            Dependencies.MARIADB_JAVA_CLIENT,
+            Dependencies.POSTGRESQL,
+            Dependencies.SQLITE,
+            Dependencies.H2,
+            Dependencies.LETTUCE_CORE,
+            Dependencies.MONGODB_DRIVER_SYNC,
+            Dependencies.MONGODB_DRIVER_REACTIVESTREAMS,
+            Dependencies.MONGODB_BSON,
+            Dependencies.MONGODB_DRIVER_CORE
+    );
 
 }

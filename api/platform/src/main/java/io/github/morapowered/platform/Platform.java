@@ -22,25 +22,23 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.platform;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import io.github.morapowered.platform.enviroment.Environment;
+import io.github.morapowered.platform.provider.PlatformProvider;
+import org.jetbrains.annotations.NotNull;
 
-public class MLibPlugin extends JavaPlugin {
-    private final MLibPaper mLibPaper;
+public interface Platform {
 
-    public MLibPlugin() {
-        this.mLibPaper = new MLibPaper(getSLF4JLogger());
+    static Platform get() {
+        return PlatformProvider.get();
     }
 
-    @Override
-    public void onLoad() {
-        mLibPaper.init();
-    }
+    @NotNull String getImplementationName();
 
-    @Override
-    public void onDisable() {
-        mLibPaper.shutdown();
+    // Default is PLUGIN
+    default @NotNull Environment getEnvironment() {
+        return Environment.PLUGIN;
     }
 
 }

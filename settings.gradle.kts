@@ -12,23 +12,24 @@ pluginManagement {
     }
 }
 
+// Misc
+include(":api:platform")
+include(":api:mod-platform")
+include(":api:loader-utils")
+include(":api:dependency-manager")
 // Configuration
 include(":api:configuration")
 // Database
 include(":api:database:mongo")
 include(":api:database:redis")
 include(":api:database:sql")
-
 // Inventory
 include(":api:inventory")
-//include(":api:inventory:extra:configurate")
-//include(":api:inventory:extra:gson")
-
 // Util
 include(":api:util")
 
 include(":platforms:common")
-include(":platforms:paper")
 include(":platforms:fabric")
-include(":platforms:neoforge")
+//include(":platforms:neoforge")  // disabled because dependency manager (needs maintenance)
+include(":platforms:paper")
 include(":platforms:velocity")

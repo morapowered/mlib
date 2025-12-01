@@ -22,39 +22,20 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.mlib.classpath;
 
-import io.github.morapowered.mlib.util.BuildParameters;
-import io.github.morapowered.platform.Platform;
-import io.github.morapowered.platform.provider.PlatformProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import io.github.morapowered.loaderutils.classpath.ClassPathAppender;
+import io.github.morapowered.mlib.platform.ProxyPlatform;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.nio.file.Path;
 
-public class MLibPaper extends JavaPlugin implements Platform {
-
-    public MLibPaper() {
-        try {
-            Class<PlatformProvider> clazz = PlatformProvider.class;
-            Method method = clazz.getDeclaredMethod("set", Platform.class);
-            method.setAccessible(true);
-            method.invoke(null, this);
-            method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-            throw new IllegalStateException("Fail initializing mlib", ex);
-        }
-    }
+@RequiredArgsConstructor
+public class VelocityClassPathAppender implements ClassPathAppender {
 
     @Override
-    public void onLoad() {
-        getSLF4JLogger().info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-        // Start Dependency Maznager here?
-    }
-
-    @Override
-    public @NotNull String getImplementationName() {
-        return "paper";
+    public void addJarToClasspath(@NotNull Path file) {
+        ProxyPlatform.get().getServer().getPluginManager().addToClasspath(ProxyPlatform.get(), file);
     }
 }

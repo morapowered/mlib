@@ -19,6 +19,9 @@ dependencies {
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
+    apiAndBundle(project(":api:platform"))
+    api(project(":api:mod-platform", configuration = "namedElements")) { isTransitive = false }
+    bundle(project(":api:mod-platform", configuration = "transformProductionNeoForge")) { isTransitive = false }
 
     apiAndBundle(project(":platforms:common"))
 

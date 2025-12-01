@@ -22,49 +22,24 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.mlib.platform;
 
-import com.google.inject.Inject;
-import com.velocitypowered.api.event.Subscribe;
-import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
-import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
-import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
-import io.github.morapowered.mlib.platform.AbstractPlatform;
-import io.github.morapowered.mlib.util.BuildParameters;
-import lombok.Getter;
+import io.github.morapowered.platform.Platform;
+import io.github.morapowered.platform.provider.PlatformProvider;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
-@Plugin(id = "mlib", name = "mlib", version = BuildParameters.VERSION, authors = {"Pedro Souza"})
-public class MLibPlugin extends AbstractPlatform {
+public interface ProxyPlatform extends Platform  {
 
-    private final @Getter Logger logger;
-    private final ProxyServer server;
-
-    @Inject
-    public MLibPlugin(Logger logger, ProxyServer server) {
-        this.logger = logger;
-        this.server = server;
+    static ProxyPlatform get() {
+        Platform platform = PlatformProvider.get();
+        if (!(platform instanceof ProxyPlatform modPlatform)) {
+            throw new IllegalStateException("This platform is not a proxy platform");
+        }
+        return modPlatform;
     }
 
-    @Subscribe
-    public void onProxyInitialize(ProxyInitializeEvent event) {
-        init();
-    }
+    @NotNull ProxyServer getServer();
 
-    @Subscribe
-    public void onProxyShutdown(ProxyShutdownEvent event) {
-        shutdown();
-    }
 
-    @Override
-    protected boolean isMod() {
-        return false;
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "proxy";
-    }
 }

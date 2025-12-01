@@ -10,7 +10,7 @@ fun Project.writeVersion(type: VersionType): String {
     return when (type) {
         VersionType.PUBLISHING -> "${rootProject.property("project_version")}${if (isSnapshot()) "-SNAPSHOT" else ""}"
         VersionType.MOD_PUBLISHING -> "${rootProject.property("project_version")}+${rootProject.property("minecraft_version")}${if (isSnapshot()) "-SNAPSHOT" else ""}"
-        VersionType.PLATFORM -> "${rootProject.property("project_version")}${if (isSnapshot()) "-${buildSuffix}" else ""} "
+        VersionType.PLATFORM -> "${rootProject.property("project_version")}${if (isSnapshot()) "-${buildSuffix}" else ""}"
         VersionType.MOD_PLATFORM -> "${rootProject.property("project_version")}+${rootProject.property("minecraft_version")}${if (isSnapshot()) "-${buildSuffix}" else ""}"
     }
 }

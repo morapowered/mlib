@@ -14,6 +14,7 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
+    apiAndBundle(project(":api:platform")) { isTransitive = false }
     apiAndBundle(project(":platforms:common")) { isTransitive = false }
     apiAndBundle(project(":api:configuration")) { isTransitive = false }
     apiAndBundle(project(":api:database:mongo")) { isTransitive = false }

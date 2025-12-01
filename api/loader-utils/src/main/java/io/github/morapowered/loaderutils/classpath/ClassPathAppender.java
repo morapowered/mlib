@@ -22,39 +22,19 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.loaderutils.classpath;
 
-import io.github.morapowered.mlib.util.BuildParameters;
-import io.github.morapowered.platform.Platform;
-import io.github.morapowered.platform.provider.PlatformProvider;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.io.Closeable;
+import java.io.IOException;
+import java.nio.file.Path;
 
-public class MLibPaper extends JavaPlugin implements Platform {
+public interface ClassPathAppender extends Closeable {
 
-    public MLibPaper() {
-        try {
-            Class<PlatformProvider> clazz = PlatformProvider.class;
-            Method method = clazz.getDeclaredMethod("set", Platform.class);
-            method.setAccessible(true);
-            method.invoke(null, this);
-            method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-            throw new IllegalStateException("Fail initializing mlib", ex);
-        }
-    }
+    void addJarToClasspath(final @NotNull Path file);
 
     @Override
-    public void onLoad() {
-        getSLF4JLogger().info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-        // Start Dependency Maznager here?
-    }
-
-    @Override
-    public @NotNull String getImplementationName() {
-        return "paper";
+    default void close() throws IOException {
     }
 }

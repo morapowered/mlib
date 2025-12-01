@@ -22,39 +22,34 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib;
+package io.github.morapowered.platform;
 
-import io.github.morapowered.mlib.util.BuildParameters;
-import io.github.morapowered.platform.Platform;
+import io.github.morapowered.platform.enviroment.Environment;
 import io.github.morapowered.platform.provider.PlatformProvider;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+public interface ModPlatform extends Platform {
 
-public class MLibPaper extends JavaPlugin implements Platform {
-
-    public MLibPaper() {
-        try {
-            Class<PlatformProvider> clazz = PlatformProvider.class;
-            Method method = clazz.getDeclaredMethod("set", Platform.class);
-            method.setAccessible(true);
-            method.invoke(null, this);
-            method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-            throw new IllegalStateException("Fail initializing mlib", ex);
+    static ModPlatform get() {
+        Platform platform = PlatformProvider.get();
+        if (!(platform instanceof ModPlatform modPlatform)) {
+            throw new IllegalStateException("This platform is not a mod platform");
         }
+        return modPlatform;
     }
 
-    @Override
-    public void onLoad() {
-        getSLF4JLogger().info("mlib (version: {}, branch: {}, build: {})", BuildParameters.VERSION, BuildParameters.BRANCH, BuildParameters.BUILD);
-        // Start Dependency Maznager here?
-    }
+    /**
+     * WARNING: This instance is only available after starting
+     *
+     * @return MinecraftServer instance
+     */
+    @NotNull MinecraftServer getMinecraftServer();
 
     @Override
-    public @NotNull String getImplementationName() {
-        return "paper";
+    @NotNull
+    default Environment getEnvironment() {
+        return Environment.MOD;
     }
+
 }

@@ -3,14 +3,10 @@ loaderVersion = "[4,)" #mandatory
 license = "MIT License"
 authors = "Pedro Souza" #optional
 
-[[mixins]]
-config = "inventory.mixins.json"
-
 [[mods]]
 modId = "mlib"
 version = "${version}"
 displayName = "mlib"
-description = '''TODO:'''
 
 [[dependencies.mlib]]
 modId = "minecraft"

@@ -20,41 +20,40 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
-    apiAndBundle(project(":platforms:common"))
-
-    apiAndBundle(project(":api:configuration"))
-    apiAndBundle(project(":api:database:mongo")) {
-        exclude("io.projectreactor")
-        exclude("org.spongepowered", "configurate-core")
-        exclude("com.google.code.gson")
-    }
-    apiAndBundle(project(":api:database:redis")) {
-        exclude("io.netty")
-        exclude("io.projectreactor")
+    apiAndBundle(project(":api:dependency-manager")) {
         exclude("org.slf4j", "slf4j-api")
-        exclude("org.spongepowered", "configurate-core")
-        exclude("com.google.code.gson")
     }
-    apiAndBundle(project(":api:database:sql")) {
-        exclude("com.google.code.gson")
-        exclude("org.slf4j", "slf4j-api")
-        exclude("org.spongepowered", "configurate-core")
-    }
-    apiAndBundle(project(":api:util"))
+    api(project(":api:platform"))
+    bundle(project(":api:platform")) { isTransitive = false }
+    api(project(":platforms:common"))
+    bundle(project(":platforms:common")) { isTransitive = false }
+    api(project(":api:mod-platform", configuration = "namedElements")) { isTransitive = false }
+    bundle(project(":api:mod-platform", configuration = "transformProductionFabric")) { isTransitive = false }
 
-    apiAndBundle(libs.reactor.core)
+
+
+    api(project(":api:configuration"))
+    api(project(":api:configuration")) { isTransitive = false }
+    api(project(":api:database:mongo"))
+    api(project(":api:database:mongo")) { isTransitive = false }
+    api(project(":api:database:redis"))
+    api(project(":api:database:redis")) { isTransitive = false }
+    api(project(":api:database:sql"))
+    api(project(":api:database:sql")) { isTransitive = false }
+    api(project(":api:util"))
+    bundle(project(":api:util")) { isTransitive = false }
+
+    api(libs.reactor.core)
 
     api(project(":api:inventory", configuration = "namedElements")) { isTransitive = false }
     include(project(":api:inventory")) { isTransitive = false }
     modApi(libs.gooeylibs.fabric)
     modApi(libs.adventure.platform.fabric)
 
-    apiAndBundle(libs.configurate.core)
-    apiAndBundle(libs.configurate.yaml)
-    apiAndBundle(libs.configurate.gson) {
-        exclude("com.google.code.gson")
-    }
-    apiAndBundle(libs.configurate.hocon)
+    api(libs.configurate.core)
+    api(libs.configurate.yaml)
+    api(libs.configurate.gson)
+    api(libs.configurate.hocon)
 
     apiAndBundle(libs.channels.bom) {
         exclude("io.lettuce")
@@ -62,15 +61,15 @@ dependencies {
         exclude("org.jetbrains", "annotations")
     }
 }
-
-tasks {
-    shadowJar {
-        relocate("com.mysql", "io.github.morapowered.mlib.lib.mysql")
-        relocate("org.mariadb", "io.github.morapowered.mlib.lib.mariadb")
-        relocate("org.postgresql", "io.github.morapowered.mlib.lib.postgresql")
-        relocate("org.sqlite", "io.github.morapowered.mlib.lib.sqlite")
-        relocate("org.h2", "io.github.morapowered.mlib.lib.h2")
-        relocate("org.h2", "io.github.morapowered.mlib.lib.h2")
-        relocate("com.google.protobuf", "io.github.morapowered.mlib.lib.protobuf")
-    }
-}
+//
+//tasks {
+//    shadowJar {
+//        relocate("com.mysql", "io.github.morapowered.mlib.lib.mysql")
+//        relocate("org.mariadb", "io.github.morapowered.mlib.lib.mariadb")
+//        relocate("org.postgresql", "io.github.morapowered.mlib.lib.postgresql")
+//        relocate("org.sqlite", "io.github.morapowered.mlib.lib.sqlite")
+//        relocate("org.h2", "io.github.morapowered.mlib.lib.h2")
+//        relocate("org.h2", "io.github.morapowered.mlib.lib.h2")
+//        relocate("com.google.protobuf", "io.github.morapowered.mlib.lib.protobuf")
+//    }
+//}

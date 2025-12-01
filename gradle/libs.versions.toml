@@ -7,6 +7,7 @@ blossom = "2.1.0"
 versioning = "3.1.0"
 licenser = "0.6.1"
 
+# misc
 annotations = "26.0.2"
 lombok = "1.18.42"
 reactor = "3.6.6"
@@ -53,6 +54,7 @@ blossom = { group = "net.kyori", name = "blossom", version.ref = "blossom" }
 versioning = { group = "net.nemerosa.versioning", name = "net.nemerosa.versioning.gradle.plugin", version.ref = "versioning" }
 licenser = { group = "gradle.plugin.org.cadixdev.gradle", name = "licenser", version.ref = "licenser" }
 
+# misc
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
 reactor-core = { group = "io.projectreactor", name = "reactor-core", version.ref = "reactor" }
@@ -93,7 +95,7 @@ fabric-api = { group = "net.fabricmc.fabric-api", name = "fabric-api", version.r
 neoforge = { group = "net.neoforged", name = "neoforge", version.ref = "neoforge" }
 
 # paper
-paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api"}
+paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper-api" }
 
 # velocity
 velocity-api = { group = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }

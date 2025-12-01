@@ -22,21 +22,23 @@
  * SOFTWARE.
  */
 
-package io.github.morapowered.mlib.platform.internal;
+package io.github.morapowered.loaderutils.classpath;
 
-import io.github.morapowered.mlib.platform.Platform;
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
-@ApiStatus.Internal
-public class InternalPlatform {
+import java.io.IOException;
+import java.nio.file.Path;
 
-    private static Platform platform;
+public class JarInJarClassPathAppender implements ClassPathAppender {
 
-    public static Platform getPlatform() {
-        if (platform == null) {
-            throw new IllegalStateException("platform not initialized yet");
-        }
-        return platform;
+
+    @Override
+    public void addJarToClasspath(@NotNull Path file) {
+
     }
 
+    @Override
+    public void close() throws IOException {
+        ClassPathAppender.super.close();
+    }
 }
