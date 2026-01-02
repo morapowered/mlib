@@ -50,6 +50,7 @@ dependencies {
         bundle(project(coord, configuration = "transformProductionFabric")) { isTransitive = false }
     }
 
+    api(libs.configurate.yaml)
     api(libs.reactor.core)
     modApi(libs.gooeylibs.fabric)
     modApi(libs.adventure.platform.fabric)

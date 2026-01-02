@@ -42,7 +42,7 @@ public interface Dependencies {
             .build();
 
     Dependency GEANTYREF = Dependency.builder()
-            .coordinates("io.leangen.geantyref:geantyref:1.3.1")
+            .coordinates("io.leangen.geantyref:geantyref:1.3.11")
             .build();
 
     Dependency CONFIGURATE_YAML = Dependency.builder()
