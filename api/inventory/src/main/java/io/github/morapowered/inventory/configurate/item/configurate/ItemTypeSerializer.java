@@ -26,10 +26,10 @@ package io.github.morapowered.inventory.configurate.item.configurate;
 
 import io.github.morapowered.inventory.configurate.item.SimpleItemSerializer;
 import io.github.morapowered.inventory.configurate.serializer.ConfigurateItemSerializer;
-import io.github.morapowered.inventory.util.ItemKeyConstants;
 import io.github.morapowered.inventory.configurate.util.ConfigurateUtil;
 import io.github.morapowered.inventory.item.ItemType;
 import io.github.morapowered.inventory.item.SimpleItem;
+import io.github.morapowered.inventory.util.ItemKeyConstants;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -47,7 +47,9 @@ public class ItemTypeSerializer implements TypeSerializer<SimpleItem> {
 
     @Override
     public SimpleItem deserialize(Type type, ConfigurationNode node) throws SerializationException {
-        ResourceLocation typeKey = ConfigurateUtil.resourceLocationOrThrow(node.node(ItemKeyConstants.TYPE));
+        ResourceLocation typeKey = node.hasChild(ItemKeyConstants.TYPE) ?
+                ConfigurateUtil.resourceLocationOrThrow(node.node(ItemKeyConstants.TYPE)) :
+                ItemType.SIMPLE.getKey();
         ConfigurateItemSerializer<?> serializer = serializers.getOrDefault(typeKey, SimpleItemSerializer.INSTANCE);
         return serializer.deserialize(node);
     }
