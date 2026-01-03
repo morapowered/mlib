@@ -12,6 +12,7 @@ dependencies {
     compileOnly(libs.annotations)
 
     api(project(":api:platform"))
+    api(libs.adventure.platform.mod.shared)
 
 
 }

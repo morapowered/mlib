@@ -40,7 +40,7 @@ public final class MultiPageInventoryConfigurationSerializer implements JsonSeri
             throw new JsonParseException("Invalid configuration");
         }
         JsonObject object = element.getAsJsonObject();
-        MultiPageInventoryConfiguration.Builder builder = MultiPageInventoryConfiguration.builder();
+        MultiPageInventoryConfiguration.Builder builder = MultiPageInventoryConfiguration.multiPage();
         AbstractPageConfigurationSerializer.deserialize(builder, object, context);
         if (object.has(InventoryKeyConstants.START) && object.has(InventoryKeyConstants.END)) {
             List<Integer> noSlots = new ArrayList<>();

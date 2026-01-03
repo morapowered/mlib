@@ -57,8 +57,8 @@ public class ConfigurateInventorySerializerImpl implements ConfigurateInventoryS
     ConfigurateInventorySerializerImpl(TypeSerializerCollection.Builder serializerBuilder, HashMap<ResourceLocation, ConfigurateItemSerializer<?>> itemSerializers) {
         this.serializers = Objects.requireNonNull(serializerBuilder, "serializerBuilder")
                 .register(SimpleItem.class, new ItemTypeSerializer(itemSerializers))
-                .register(SimplePageInventoryConfiguration.class, new SimplePageInventoryConfigurationSerializer())
-                .register(MultiPageInventoryConfiguration.class, new MultiPageInventoryConfigurationSerializer())
+                .registerExact(SimplePageInventoryConfiguration.class, new SimplePageInventoryConfigurationSerializer())
+                .registerExact(MultiPageInventoryConfiguration.class, new MultiPageInventoryConfigurationSerializer())
                 .build();
     }
 

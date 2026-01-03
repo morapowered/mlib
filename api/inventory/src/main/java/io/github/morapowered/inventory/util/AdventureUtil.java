@@ -25,9 +25,9 @@
 package io.github.morapowered.inventory.util;
 
 import io.github.morapowered.platform.ModPlatform;
-import net.kyori.adventure.platform.modcommon.MinecraftServerAudiences;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.ComponentSerializer;
 import net.minecraft.network.chat.Component;
 
 public class AdventureUtil {
@@ -41,12 +41,12 @@ public class AdventureUtil {
     }
 
     public static Component text(net.kyori.adventure.text.Component component) {
-        return getServerAudiences().nonWrappingSerializer()
+        return nonWrappingSerializer()
                 .serialize(component.applyFallbackStyle(style -> style.decoration(TextDecoration.ITALIC, false)));
     }
 
-    private static MinecraftServerAudiences getServerAudiences() {
-        return MinecraftServerAudiences.of(ModPlatform.get().getMinecraftServer());
+    private static ComponentSerializer<net.kyori.adventure.text.Component, net.kyori.adventure.text.Component, Component> nonWrappingSerializer() {
+        return ModPlatform.get().nonWrappingSerializer();
     }
 
 }

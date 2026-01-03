@@ -37,7 +37,7 @@ public final class SimplePageInventoryConfigurationSerializer implements JsonSer
             throw new JsonParseException("Invalid configuration");
         }
         JsonObject object = element.getAsJsonObject();
-        return AbstractPageConfigurationSerializer.deserialize(SimplePageInventoryConfiguration.builder(), object, context)
+        return AbstractPageConfigurationSerializer.deserialize(SimplePageInventoryConfiguration.simplePage(), object, context)
                 .build();
     }
 

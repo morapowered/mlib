@@ -38,8 +38,8 @@ import java.lang.reflect.Type;
 public final class MultiPageInventoryConfigurationSerializer implements TypeSerializer<MultiPageInventoryConfiguration> {
     @Override
     public MultiPageInventoryConfiguration deserialize(Type type, ConfigurationNode node) throws SerializationException {
-        MultiPageInventoryConfiguration.Builder builder = MultiPageInventoryConfiguration.builder();
-        AbstractPageConfigurationSerializer.deserialize(MultiPageInventoryConfiguration.builder(), node);
+        MultiPageInventoryConfiguration.Builder builder = MultiPageInventoryConfiguration.multiPage();
+        AbstractPageConfigurationSerializer.deserialize(MultiPageInventoryConfiguration.multiPage(), node);
         if (node.hasChild(InventoryKeyConstants.START) && node.hasChild(InventoryKeyConstants.END)) {
             builder.startAndEnd(ConfigurateUtil.intOrThrow(node.node(InventoryKeyConstants.START)),
                     ConfigurateUtil.intOrThrow(node.node(InventoryKeyConstants.END)),

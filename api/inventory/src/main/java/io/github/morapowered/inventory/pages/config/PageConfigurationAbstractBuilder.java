@@ -25,33 +25,41 @@
 package io.github.morapowered.inventory.pages.config;
 
 import io.github.morapowered.inventory.item.SimpleItem;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public interface PageConfigurationAbstractBuilder<B extends PageConfigurationAbstractBuilder<B, T>, T> {
+public abstract class PageConfigurationAbstractBuilder<B> {
 
-    @NotNull
-    B asBuilder();
+    protected String title = "{green}Title here";
+    protected int rows = 3;
+    protected final HashMap<String, SimpleItem> staticItems = new HashMap<>();
 
-    @Contract("_ -> this")
-    @NotNull
-    B title(final @NotNull String title);
+    public @NotNull B title(@NotNull String title) {
+        this.title = Objects.requireNonNull(title, "title");
+        return asBuilder();
+    }
 
-    @Contract("_ -> this")
-    @NotNull
-    B rows(final int rows);
+    public @NotNull B rows(int rows) {
+        if (rows < 1 || rows > 6) {
+            throw new IllegalArgumentException("Invalid rows range [1, 6]: " + rows);
+        }
+        this.rows = rows;
+        return asBuilder();
+    }
 
-    @Contract("_ -> this")
-    @NotNull
-    B staticItems(final @NotNull Map<String, SimpleItem> staticItems);
+    public @NotNull B staticItems(@NotNull Map<String, SimpleItem> staticItems) {
+        this.staticItems.putAll(Objects.requireNonNull(staticItems, "staticItems"));
+        return asBuilder();
+    }
 
-    @Contract("_, _ -> this")
-    @NotNull
-    B staticItem(final @NotNull String id, final @NotNull SimpleItem item);
+    public @NotNull B staticItem(@NotNull String id, @NotNull SimpleItem item) {
+        this.staticItems.put(Objects.requireNonNull(id, "id"), Objects.requireNonNull(item, "item"));
+        return asBuilder();
+    }
 
-    @NotNull
-    T build();
+    public abstract B asBuilder();
 
 }

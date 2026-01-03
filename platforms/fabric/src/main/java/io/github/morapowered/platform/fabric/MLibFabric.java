@@ -35,6 +35,11 @@ import io.github.morapowered.platform.util.BuildParameters;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.kyori.adventure.platform.fabric.FabricAudiences;
+import net.kyori.adventure.platform.fabric.FabricServerAudiences;
+import net.kyori.adventure.platform.fabric.impl.NonWrappingComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.ComponentSerializer;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -85,6 +90,11 @@ public class MLibFabric implements ModPlatform, PreLaunchEntrypoint {
             throw new IllegalStateException("Server has not been started yet");
         }
         return server;
+    }
+
+    @Override
+    public @NotNull ComponentSerializer<Component, Component, net.minecraft.network.chat.Component> nonWrappingSerializer() {
+        return FabricAudiences.nonWrappingSerializer();
     }
 
     @Override

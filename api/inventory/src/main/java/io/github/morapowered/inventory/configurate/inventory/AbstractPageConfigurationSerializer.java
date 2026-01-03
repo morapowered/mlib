@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public interface AbstractPageConfigurationSerializer {
 
-    static <B extends PageConfigurationAbstractBuilder<B, T>, T> B deserialize(final @NotNull B builder, final @NotNull ConfigurationNode node) throws SerializationException {
+    static <B extends PageConfigurationAbstractBuilder<B>> B deserialize(final @NotNull B builder, final @NotNull ConfigurationNode node) throws SerializationException {
         ConfigurationNode staticItemNode = node.node(InventoryKeyConstants.STATIC_ITEMS);
         for (Map.Entry<Object, ? extends ConfigurationNode> entry : staticItemNode.childrenMap().entrySet()) {
             String id = entry.getKey().toString();

@@ -26,24 +26,41 @@ package io.github.morapowered.inventory.pages.simple.config;
 
 import io.github.morapowered.inventory.item.SimpleItem;
 import io.github.morapowered.inventory.pages.config.PageConfigurationAbstractBuilder;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.HashMap;
+import java.util.Objects;
 
-public interface SimplePageInventoryConfiguration {
+@Getter
+public class SimplePageInventoryConfiguration {
 
-    static Builder builder() {
-        return new SimplePageInventoryConfigurationImpl.BuilderImpl();
+    public static SimplePageInventoryConfiguration.Builder simplePage() {
+        return new Builder();
     }
 
-    @NotNull String getTitle();
+    public final String title;
+    public final int rows;
+    public final HashMap<String, SimpleItem> staticItems;
 
-    int getRows();
-
-    @NotNull Map<String, SimpleItem> getStaticItems();
-
-    interface Builder extends PageConfigurationAbstractBuilder<Builder, SimplePageInventoryConfiguration> {
-
+    public SimplePageInventoryConfiguration(final String title, final int rows, final HashMap<String, SimpleItem> staticItems) {
+        this.title = Objects.requireNonNull(title, "title");
+        this.rows = rows;
+        this.staticItems = Objects.requireNonNull(staticItems, "staticItems");
     }
 
+
+    public static class Builder extends PageConfigurationAbstractBuilder<Builder> {
+        Builder() {
+        }
+
+        @Override
+        public @NotNull Builder asBuilder() {
+            return this;
+        }
+
+        public @NotNull SimplePageInventoryConfiguration build() {
+            return new SimplePageInventoryConfiguration(title, rows, staticItems);
+        }
+    }
 }

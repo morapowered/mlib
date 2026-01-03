@@ -26,6 +26,8 @@ package io.github.morapowered.platform;
 
 import io.github.morapowered.platform.enviroment.Environment;
 import io.github.morapowered.platform.provider.PlatformProvider;
+import net.kyori.adventure.text.serializer.ComponentSerializer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,5 +53,7 @@ public interface ModPlatform extends Platform {
     default Environment getEnvironment() {
         return Environment.MOD;
     }
+
+    @NotNull ComponentSerializer<net.kyori.adventure.text.Component, net.kyori.adventure.text.Component, Component> nonWrappingSerializer();
 
 }

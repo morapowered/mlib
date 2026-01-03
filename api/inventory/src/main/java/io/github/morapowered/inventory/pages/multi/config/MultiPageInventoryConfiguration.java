@@ -27,68 +27,155 @@ package io.github.morapowered.inventory.pages.multi.config;
 import io.github.morapowered.inventory.item.SimpleItem;
 import io.github.morapowered.inventory.pages.config.PageConfigurationAbstractBuilder;
 import io.github.morapowered.inventory.pages.simple.config.SimplePageInventoryConfiguration;
-import org.jetbrains.annotations.Contract;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
-public interface MultiPageInventoryConfiguration extends SimplePageInventoryConfiguration {
+@Getter
+public class MultiPageInventoryConfiguration extends SimplePageInventoryConfiguration {
 
-    static Builder builder() {
-        return new MultiPageInventoryConfigurationImpl.BuilderImpl();
+    public static MultiPageInventoryConfiguration.Builder multiPage() {
+        return new Builder();
     }
 
-    @NotNull Set<Integer> getSlots();
+    private final Set<Integer> slots;
+    private final SimpleItem previousItem;
+    private final SimpleItem nextItem;
 
-    @NotNull SimpleItem getPreviousItem();
-
-    @NotNull SimpleItem getNextItem();
-
-    interface Builder extends PageConfigurationAbstractBuilder<Builder, MultiPageInventoryConfiguration> {
-
-        @Contract("_, _, _ -> this")
-        @NotNull
-        Builder startAndEnd(final int start, final int end, final Integer... noSlots);
-
-        @Contract("_ -> this")
-        @NotNull
-        Builder noSlot(final int slot);
-
-        @Contract("_ -> this")
-        @NotNull
-        Builder noSlots(final @NotNull Collection<Integer> slots);
-
-        @Contract("_ -> this")
-        @NotNull
-        default Builder noSlots(final Integer... slots) {
-            return noSlots(Arrays.asList(slots));
-        }
-
-        @Contract("_ -> this")
-        @NotNull
-        Builder slots(final Collection<Integer> slots);
-
-        @Contract("_ -> this")
-        @NotNull
-        default Builder slots(final Integer... slots) {
-            return slots(Arrays.asList(slots));
-        }
-
-        @Contract("_ -> this")
-        @NotNull
-        Builder slot(final int slot);
-
-        @Contract("_ -> this")
-        @NotNull
-        Builder previousItem(final @NotNull SimpleItem item);
-
-        @Contract("_ -> this")
-        @NotNull
-        Builder nextItem(final @NotNull SimpleItem item);
-
+    MultiPageInventoryConfiguration(String title, int rows, HashMap<String, SimpleItem> staticItems, final @NotNull Set<Integer> slots, final @NotNull SimpleItem previousItem, final @NotNull SimpleItem nextItem) {
+        super(title, rows, staticItems);
+        this.slots = Objects.requireNonNull(slots, "slots");
+        this.previousItem = Objects.requireNonNull(previousItem, "previousItem");
+        this.nextItem = Objects.requireNonNull(nextItem, "nextItem");
     }
 
+    public static class Builder extends PageConfigurationAbstractBuilder<Builder> {
+
+        protected Integer start; // Default: 10
+        protected Integer end; // Default: 43
+        protected Set<Integer> noSlots; // Default [17, 18, 26, 27, 35, 36]
+        protected Set<Integer> slots;
+        protected SimpleItem previousItem = SimpleItem.builder()
+                .slot(46)
+                .displayName("{green}Previous Page")
+                .lore("{gray}Click to go to the previous page.")
+                .build();
+        protected SimpleItem nextItem = SimpleItem.builder()
+                .slot(52)
+                .displayName("{green}Next Page")
+                .lore("{gray}Click to go to the next page.")
+                .build();
+
+
+        Builder() {
+            this.rows = 6;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder startAndEnd(int start, int end, Integer... noSlots) {
+            if (start > end) {
+                throw new IllegalArgumentException("Start needs to bigger than the end.");
+            }
+            if (start < 0) {
+                throw new IllegalArgumentException("Invalid start range [0, 53]: " + start);
+            }
+            if (end > 53) {
+                throw new IllegalArgumentException("Invalid end range [0, 53]: " + end);
+            }
+            this.start = start;
+            this.end = end;
+            if (noSlots != null) {
+                if (this.noSlots == null) {
+                    this.noSlots = new HashSet<>();
+                }
+                for (Integer noSlot : noSlots) {
+                    if (noSlot < 0 || noSlot > 53) {
+                        throw new IllegalArgumentException("Invalid slot range [0, 53]: " + noSlot);
+                    }
+                    this.noSlots.add(noSlot);
+                }
+            }
+            return this;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder noSlot(int slot) {
+            if (slot < 0 || slot > 53) {
+                throw new IllegalArgumentException("Invalid slot range [0, 53]: " + slot);
+            }
+            if (noSlots == null) {
+                noSlots = new HashSet<>();
+            }
+            noSlots.add(slot);
+            return this;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder noSlots(@NotNull Collection<Integer> slots) {
+            if (noSlots == null) {
+                noSlots = new HashSet<>();
+            }
+            for (Integer noSlot : slots) {
+                if (noSlot < 0 || noSlot > 53) {
+                    throw new IllegalArgumentException("Invalid slot range [0, 53]: " + noSlot);
+                }
+                this.noSlots.add(noSlot);
+            }
+            return this;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder slots(Collection<Integer> slots) {
+            if (this.slots == null) {
+                this.slots = new HashSet<>();
+            }
+            for (Integer slot : slots) {
+                if (slot < 0 || slot > 53) {
+                    throw new IllegalArgumentException("Invalid slot range [0, 53]: " + slot);
+                }
+                this.slots.add(slot);
+            }
+            return this;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder slot(int slot) {
+            if (slot < 0 || slot > 53) {
+                throw new IllegalArgumentException("Invalid slot range [0, 53]: " + slot);
+            }
+            if (this.slots == null) {
+                this.slots = new HashSet<>();
+            }
+            this.slots.add(slot);
+            return this;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder previousItem(@NotNull SimpleItem item) {
+            this.previousItem = Objects.requireNonNull(item, "item");
+            return this;
+        }
+
+        public MultiPageInventoryConfiguration.@NotNull Builder nextItem(@NotNull SimpleItem item) {
+            this.nextItem = Objects.requireNonNull(item, "item");
+            return this;
+        }
+
+        @Override
+        public @NotNull MultiPageInventoryConfiguration.Builder asBuilder() {
+            return this;
+        }
+
+        public @NotNull MultiPageInventoryConfiguration build() {
+            Set<Integer> finalSlots = new HashSet<>();
+            if (start != null && end != null) {
+                for (int slot = start; slot <= end; slot++) {
+                    if (noSlots != null && noSlots.contains(slot)) {
+                        continue;
+                    }
+                    finalSlots.add(slot);
+                }
+            }
+            if (slots != null) {
+                finalSlots.addAll(slots);
+            }
+            return new MultiPageInventoryConfiguration(title, rows, staticItems, finalSlots, previousItem, nextItem);
+        }
+    }
 
 }

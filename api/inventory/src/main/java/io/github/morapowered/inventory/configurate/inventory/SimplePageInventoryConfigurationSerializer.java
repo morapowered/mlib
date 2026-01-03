@@ -35,7 +35,7 @@ import java.lang.reflect.Type;
 public final class SimplePageInventoryConfigurationSerializer implements TypeSerializer<SimplePageInventoryConfiguration> {
     @Override
     public SimplePageInventoryConfiguration deserialize(Type type, ConfigurationNode node) throws SerializationException {
-        return AbstractPageConfigurationSerializer.deserialize(SimplePageInventoryConfiguration.builder(), node)
+        return AbstractPageConfigurationSerializer.deserialize(SimplePageInventoryConfiguration.simplePage(), node)
                 .build();
     }
 

@@ -39,7 +39,7 @@ import java.util.Map;
  */
 public interface AbstractPageConfigurationSerializer {
 
-    static <B extends PageConfigurationAbstractBuilder<B, T>, T> B deserialize(final @NotNull B builder, final @NotNull JsonObject object, JsonDeserializationContext context) throws JsonParseException {
+    static <B extends PageConfigurationAbstractBuilder<B>> B deserialize(final @NotNull B builder, final @NotNull JsonObject object, JsonDeserializationContext context) throws JsonParseException {
 
         if (object.has(InventoryKeyConstants.STATIC_ITEMS)) {
             JsonObject staticItemsObject = object.getAsJsonObject(InventoryKeyConstants.STATIC_ITEMS);
