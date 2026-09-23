@@ -98,7 +98,7 @@ public class DependencyManagerImpl implements DependencyManager {
         for (Dependency dependency : dependencies) {
             if (this.loadedDependencies.containsKey(dependency)) {
                 latch.countDown();
-                return;
+                continue;
             }
             CompletableFuture.runAsync(() -> {
                 try {

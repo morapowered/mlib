@@ -43,7 +43,7 @@ public class MultiPageInventoryConfiguration extends SimplePageInventoryConfigur
     private final SimpleItem previousItem;
     private final SimpleItem nextItem;
 
-    MultiPageInventoryConfiguration(String title, int rows, HashMap<String, SimpleItem> staticItems, final @NotNull Set<Integer> slots, final @NotNull SimpleItem previousItem, final @NotNull SimpleItem nextItem) {
+    public MultiPageInventoryConfiguration(String title, int rows, HashMap<String, SimpleItem> staticItems, final @NotNull Set<Integer> slots, final @NotNull SimpleItem previousItem, final @NotNull SimpleItem nextItem) {
         super(title, rows, staticItems);
         this.slots = Objects.requireNonNull(slots, "slots");
         this.previousItem = Objects.requireNonNull(previousItem, "previousItem");
