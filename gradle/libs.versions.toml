@@ -58,7 +58,7 @@ licenser = { group = "gradle.plugin.org.cadixdev.gradle", name = "licenser", ver
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
 reactor-core = { group = "io.projectreactor", name = "reactor-core", version.ref = "reactor" }
-channels-bom = { group = "io.github.morapowered.channels", name = "bom", version.ref = "channels" }
+channels-bom = { group = "com.morapowered.channels", name = "bom", version.ref = "channels" }
 
 # configuration
 configurate-core = { group = "org.spongepowered", name = "configurate-core", version.ref = "configurate" }

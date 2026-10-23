@@ -28,8 +28,8 @@ include(":api:inventory")
 // Util
 include(":api:util")
 
-include(":platforms:common")
-include(":platforms:fabric")
+include(":platform:common")
+include(":platform:fabric")
 //include(":platforms:neoforge")  // disabled because dependency manager (needs maintenance)
-include(":platforms:paper")
-include(":platforms:velocity")
+include(":platform:paper")
+include(":platform:velocity")
